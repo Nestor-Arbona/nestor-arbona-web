@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nestor Arbona — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000000;
+    --text: #ffffff;
+    --muted: #a0a0a0;
+    --accent: #ffffff;
+    --line: #262626;
+    --card-bg: #171717;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  ::selection {
+    background: #ffde00;
+    color: #111111;
+  }
+
+  html {
+    background: var(--bg);
+  }
+
+  body {
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: transparent;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: transparent;
+    z-index: 100;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 3rem;
+  }
+
+  .logo img {
+    height: 56px;
+    width: auto;
+    display: block;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover { color: #ffde00; }
+
+  section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .hero {
+    position: relative;
+    max-width: none;
+    margin: 0;
+    padding: 4rem 0 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #app {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    touch-action: none;
+  }
+
+  #canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .hero p.eyebrow {
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 span {
+    display: block;
+    color: var(--muted);
+    font-weight: 400;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    letter-spacing: -0.01em;
+    margin-top: 0.6rem;
+  }
+
+  .hero p.desc {
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 1.3rem;
+  }
+
+  .hero .cta {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .about-btn {
+    margin-top: 1.5rem;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  .btn-secondary:hover { border-color: var(--muted); }
+
+  h2.section-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h2.section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* Quien soy */
+  #sobre-mi {
+    text-align: center;
+  }
+
+  #sobre-mi h2.section-title {
+    justify-content: center;
+    color: var(--text);
+  }
+
+  #sobre-mi h2.section-title::after {
+    display: none;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    justify-items: center;
+  }
+
+  .about-content p {
+    color: var(--text);
+    font-size: 1.05rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .skills span {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+  }
+
+  /* Portfolio */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--line);
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--muted);
+  }
+
+  .project-card .tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .project-card h3 {
+    font-size: 1.15rem;
+    margin: 0.6rem 0 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .project-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .project-card a {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--text);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .project-card a:hover {
+    color: #ffde00;
+    border-color: #ffde00;
+  }
+
+  /* Contacto */
+  .contact-box {
+    background: rgba(23, 23, 23, 0.7);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+
+  .contact-hashtag {
+    position: relative;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .contact-hashtag::after {
+    content: '|';
+    margin-left: 2px;
+    animation: blink-cursor 0.8s step-end infinite;
+  }
+
+  .contact-hashtag.typing-done::after {
+    content: none;
+  }
+
+  @keyframes blink-cursor {
+    50% { opacity: 0; }
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: color 0.2s ease;
+  }
+
+  .social-links a:hover {
+    color: #ffde00;
+  }
+
+  .social-links svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+  }
+
+  footer {
+    position: relative;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .framer-credit {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .framer-credit:hover { opacity: 1; }
+
+  @media (max-width: 600px) {
+    header { padding: 1.2rem 1.2rem; }
+    nav ul { gap: 1.2rem; }
+    section { padding: 4rem 1.2rem; }
+  }
+
+  #preloader {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  #preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  #preloader-count {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+  }
+
+  body.loading {
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <span id="preloader-count">0%</span>
+</div>
+<script>
+  if (sessionStorage.getItem('visited')) {
+    document.getElementById('preloader').style.display = 'none';
+  } else {
+    document.body.classList.add('loading');
+  }
+</script>
+
+<div id="app">
+  <canvas id="canvas"></canvas>
+</div>
+
+<header>
+  <a href="#" class="logo"><img src="N mk1-02.png" alt="Nestor Arbona"></a>
+  <nav>
+    <ul>
+      <li><a href="sobre-mi.html">Quién soy</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">Bienvenido a mi web personal</p>
+    <h1>Nestor Arbona <span>Especialista en Marketing Digital, Social Media y Paid Media</span></h1>
+    <p class="desc">
+      Descubre mi experiencia, proyectos y la pasión que me impulsa a seguir
+      creando, aprendiendo y haciendo crecer marcas.
+    </p>
+  </div>
+</section>
+
+<section id="sobre-mi">
+  <h2 class="section-title">Quién soy</h2>
+  <div class="about-content">
+    <p>
+      Detrás del profesional del marketing hay una persona apasionada por la
+      creatividad, la comunicación y el aprendizaje continuo. Esta sección es
+      una pequeña ventana para conocer mi recorrido, mis valores y la forma en
+      la que entiendo mi trabajo.
+    </p>
+    <a href="sobre-mi.html" class="btn btn-primary about-btn">Sobre mí</a>
+  </div>
+</section>
+
+<section id="portfolio">
+  <h2 class="section-title">Portfolio</h2>
+  <div class="projects">
+    <div class="project-card">
+      <span class="tag">Proyecto 01</span>
+      <h3>Nombre del proyecto</h3>
+      <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
+      <a href="#">Ver proyecto →</a>
+    </div>
+    <div class="project-card">
+      <span class="tag">Proyecto 02</span>
+      <h3>Nombre del proyecto</h3>
+      <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
+      <a href="#">Ver proyecto →</a>
+    </div>
+    <div class="project-card">
+      <span class="tag">Proyecto 03</span>
+      <h3>Nombre del proyecto</h3>
+      <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
+      <a href="#">Ver proyecto →</a>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="contact-box">
+    <h3 class="contact-title">Contacto</h3>
+    <p>¿Tienes un proyecto en mente o quieres saludar? Escríbeme por cualquiera de estos canales.</p>
+    <div class="social-links">
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .31.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Behance">
+        <svg viewBox="0 0 24 24"><path d="M22 7.34h-6.75V5.6H22v1.74zM7.85 12.24c.94-.5 1.47-1.32 1.47-2.6 0-2.42-1.77-3.53-4.06-3.53H0v14.34h5.42c2.5 0 4.86-1.2 4.86-3.98 0-1.72-.87-2.94-2.43-3.23zM3.13 8.05h2.02c.99 0 1.87.34 1.87 1.5 0 1.07-.75 1.55-1.75 1.55H3.13V8.05zm2.28 9.42H3.13v-3.6h2.35c1.23 0 2.06.53 2.06 1.83 0 1.32-1 1.77-2.13 1.77zM16.15 9.23c-3.51 0-5.63 2.5-5.63 5.92 0 3.57 1.98 5.86 5.65 5.86 2.83 0 4.65-1.32 5.3-4h-2.68c-.24.9-1.15 1.4-2.53 1.4-1.82 0-2.8-1.08-2.87-3.05h8.24c.16-3.83-1.75-6.13-5.48-6.13zm-2.7 4.7c.13-1.5 1.06-2.5 2.65-2.5 1.57 0 2.35 1 2.44 2.5h-5.09z"/></svg>
+      </a>
+    </div>
+  </div>
+  <p class="contact-hashtag" id="typewriter-text" data-text="#BeCreativeMyFriend"></p>
+</section>
+
+<footer>
+  © 2026 Nestor Arbona. Todos los derechos reservados.
+  <a class="framer-credit" target="_blank" href="https://www.framer.com/@kevin-levron/">Framer Component</a>
+</footer>
+
+<script>
+  if (document.body.classList.contains('loading')) {
+    const preloader = document.getElementById('preloader');
+    const counter = document.getElementById('preloader-count');
+    let progress = 0;
+
+    const tick = () => {
+      progress += Math.random() * 8 + 2;
+      if (progress >= 100) {
+        progress = 100;
+        counter.textContent = '100%';
+        preloader.classList.add('hidden');
+        document.body.classList.remove('loading');
+        sessionStorage.setItem('visited', 'true');
+        return;
+      }
+      counter.textContent = Math.floor(progress) + '%';
+      setTimeout(tick, 80);
+    };
+
+    tick();
+  }
+</script>
+
+<script>
+  const twEl = document.getElementById('typewriter-text');
+  const twText = twEl.dataset.text;
+  let twStarted = false;
+
+  const twObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !twStarted) {
+        twStarted = true;
+        let i = 0;
+        const typeNext = () => {
+          twEl.textContent = twText.slice(0, i);
+          i++;
+          if (i <= twText.length) {
+            setTimeout(typeNext, 80);
+          } else {
+            twEl.classList.add('typing-done');
+          }
+        };
+        typeNext();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  twObserver.observe(twEl);
+</script>
+
+<script type="module">
+  // Licencia CC BY-NC-SA 4.0 — Attribution-NonCommercial-ShareAlike
+  // Componente original: https://www.framer.com/@kevin-levron/
+  import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
+
+  const app = TubesCursor(document.getElementById('canvas'), {
+    tubes: {
+      colors: ["#f967fb", "#53bc28", "#6958d5"],
+      lights: {
+        intensity: 200,
+        colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
+      }
+    }
+  })
+
+  document.body.addEventListener('click', () => {
+    const colors = randomColors(3)
+    const lightsColors = randomColors(4)
+    app.tubes.setColors(colors)
+    app.tubes.setLightsColors(lightsColors)
+  })
+
+  function randomColors(count) {
+    return new Array(count)
+      .fill(0)
+      .map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
+  }
+</script>
+</body>
+</html>
