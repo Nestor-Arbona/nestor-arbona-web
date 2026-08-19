@@ -99,8 +99,6 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 1;
-    transition: opacity 0.2s ease;
   }
 
   /* Sobre mí — editorial */
@@ -109,18 +107,11 @@
     padding-top: 10rem;
   }
 
-  .about-editorial::before {
-    content: "";
-    position: absolute;
-    top: 6rem;
-    bottom: 4rem;
-    left: 2rem;
-    width: 1px;
-    background: var(--line);
-  }
-
-  .about-intro::before {
-    display: none;
+  .text-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.8rem;
   }
 
   .about-intro-row {
@@ -142,18 +133,7 @@
   }
 
   .about-text {
-    position: relative;
     flex: 1;
-  }
-
-  .about-text::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 1px;
-    background: var(--line);
   }
 
   .about-index {
@@ -163,14 +143,12 @@
     text-transform: uppercase;
     color: #ffffff;
     margin-bottom: 2.5rem;
-    padding-left: 2rem;
   }
 
   .about-lead {
     font-size: 1.3rem;
     color: var(--text);
     max-width: 700px;
-    padding-left: 2rem;
     margin-bottom: 1.8rem;
   }
 
@@ -187,18 +165,15 @@
     font-size: 1.1rem;
     color: var(--muted);
     max-width: 700px;
-    padding-left: 2rem;
   }
 
   .about-intro > .about-body {
-    padding-left: 0;
     max-width: none;
   }
 
   .about-subtitle {
     font-size: 1.05rem;
     color: var(--muted);
-    padding-left: 2rem;
     margin-bottom: 3rem;
   }
 
@@ -206,7 +181,6 @@
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    padding-left: 2rem;
   }
 
   .timeline-item {
@@ -269,7 +243,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding-left: 2rem;
   }
 
   .education-list li {
@@ -313,13 +286,7 @@
     header { padding: 1.2rem 1.2rem; }
     nav ul { gap: 1.2rem; }
     section { padding: 4rem 1.2rem; }
-    .about-editorial::before,
-    .about-index,
-    .about-lead,
-    .about-body,
-    .about-subtitle,
-    .timeline,
-    .education-list { padding-left: 1.2rem; }
+    .text-card { padding: 1.2rem; }
     .timeline-item {
       grid-template-columns: 1fr;
       gap: 0.5rem;
@@ -394,55 +361,59 @@
     <div class="about-photo">
       <img src="Assets/Yo.jpg" alt="Nestor Arbona">
     </div>
-    <div class="about-text">
+    <div class="about-text text-card">
       <p class="about-index">01 — Quién soy</p>
       <p class="about-lead">Me dedico al marketing digital porque me gusta el punto exacto donde una idea bien contada se convierte en algo que la gente nota. Llevo desde 2018 moviéndome entre redes sociales, campañas de pago y contenido, siempre con la vista puesta en que cada pieza tenga una razón de ser, no solo relleno.</p>
     </div>
   </div>
-  <p class="about-body">Fuera del trabajo me encontrarás con un café en la mano, viendo cine o perdido entre viñetas de cómic — cosas que, sin darme cuenta, siempre acaban colándose en cómo pienso una campaña o diseño una pieza.</p>
+  <p class="about-body text-card">Fuera del trabajo me encontrarás con un café en la mano, viendo cine o perdido entre viñetas de cómic — cosas que, sin darme cuenta, siempre acaban colándose en cómo pienso una campaña o diseño una pieza.</p>
 </section>
 
 <section class="about-editorial">
-  <p class="about-index">02 — Experiencia</p>
-  <p class="about-subtitle">Por dónde he pasado</p>
-  <div class="timeline">
-    <div class="timeline-item">
-      <span class="timeline-date">2022 — actualidad</span>
-      <div class="timeline-content">
-        <h3>Grupo Motor Pacífico</h3>
-        <p class="timeline-role">Departamento de Marketing</p>
-        <p class="timeline-desc">Llevo la conversación digital de dos marcas de automoción con personalidades muy distintas, sin perder de vista el resultado en campaña.</p>
-        <ul class="timeline-list">
-          <li>Gestión de las redes sociales de SEAT y CUPRA Miferauto</li>
-          <li>Campañas de Google Ads y Meta Ads</li>
-          <li>Coordinación con agencias externas</li>
-        </ul>
+  <div class="text-card">
+    <p class="about-index">02 — Experiencia</p>
+    <p class="about-subtitle">Por dónde he pasado</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">2022 — actualidad</span>
+        <div class="timeline-content">
+          <h3>Grupo Motor Pacífico</h3>
+          <p class="timeline-role">Departamento de Marketing</p>
+          <p class="timeline-desc">Llevo la conversación digital de dos marcas de automoción con personalidades muy distintas, sin perder de vista el resultado en campaña.</p>
+          <ul class="timeline-list">
+            <li>Gestión de las redes sociales de SEAT y CUPRA Miferauto</li>
+            <li>Campañas de Google Ads y Meta Ads</li>
+            <li>Coordinación con agencias externas</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="timeline-item">
-      <span class="timeline-date">2018 — 2022</span>
-      <div class="timeline-content">
-        <h3>Grupo Setabense</h3>
-        <p class="timeline-role">Responsable de Marketing</p>
-        <p class="timeline-desc">Aquí empecé a construir marca de verdad: de la estrategia de comunicación al contenido que la sostenía cada día.</p>
-        <ul class="timeline-list">
-          <li>Planes de comunicación de marca</li>
-          <li>Redes sociales y campañas de pago</li>
-          <li>Producción de contenido fotográfico y de vídeo</li>
-        </ul>
+      <div class="timeline-item">
+        <span class="timeline-date">2018 — 2022</span>
+        <div class="timeline-content">
+          <h3>Grupo Setabense</h3>
+          <p class="timeline-role">Responsable de Marketing</p>
+          <p class="timeline-desc">Aquí empecé a construir marca de verdad: de la estrategia de comunicación al contenido que la sostenía cada día.</p>
+          <ul class="timeline-list">
+            <li>Planes de comunicación de marca</li>
+            <li>Redes sociales y campañas de pago</li>
+            <li>Producción de contenido fotográfico y de vídeo</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="about-editorial">
-  <p class="about-index">03 — Formación</p>
-  <ol class="education-list">
-    <li><span class="education-num">01</span>Máster en Marketing Digital — Aula CM</li>
-    <li><span class="education-num">02</span>Curso Especialista en Diseño Gráfico — Grupo Esneca</li>
-    <li><span class="education-num">03</span>Grado Superior en Gestión Comercial y Marketing</li>
-    <li><span class="education-num">04</span>Grado Superior en Gestión de Venta y Espacios Comerciales</li>
-  </ol>
+  <div class="text-card">
+    <p class="about-index">03 — Formación</p>
+    <ol class="education-list">
+      <li><span class="education-num">01</span>Máster en Marketing Digital — Aula CM</li>
+      <li><span class="education-num">02</span>Curso Especialista en Diseño Gráfico — Grupo Esneca</li>
+      <li><span class="education-num">03</span>Grado Superior en Gestión Comercial y Marketing</li>
+      <li><span class="education-num">04</span>Grado Superior en Gestión de Venta y Espacios Comerciales</li>
+    </ol>
+  </div>
 </section>
 
 <footer>
@@ -503,13 +474,5 @@
   }
 </script>
 
-<script>
-  const cursorCanvas = document.getElementById('canvas');
-  document.addEventListener('mousemove', (e) => {
-    const el = document.elementFromPoint(e.clientX, e.clientY);
-    const overText = el && el.closest('h1, h2, h3, p, a, li, span');
-    cursorCanvas.style.opacity = overText ? '0.5' : '1';
-  });
-</script>
 </body>
 </html>
