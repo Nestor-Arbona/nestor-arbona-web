@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso SEAT Miferauto — Nestor Arbona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000000;
+    --text: #ffffff;
+    --muted: #a0a0a0;
+    --accent: #ffde00;
+    --line: #262626;
+    --card-bg: #171717;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; background: var(--bg); }
+
+  ::selection {
+    background: #ffde00;
+    color: #111111;
+  }
+
+  body {
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: transparent;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.35) 65%, rgba(0, 0, 0, 0) 100%);
+    z-index: 100;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 3rem;
+  }
+
+  .logo img {
+    height: 56px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  #app {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    touch-action: none;
+  }
+
+  #canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .case-editorial {
+    position: relative;
+    padding-top: 10rem;
+  }
+
+  .text-card {
+    background: rgba(23, 23, 23, 0.7);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.8rem;
+  }
+
+  .case-index {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 2.5rem;
+  }
+
+  .case-kicker {
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+
+  .case-lead {
+    font-size: 1.3rem;
+    color: var(--text);
+    max-width: 700px;
+    margin-bottom: 1.8rem;
+  }
+
+  .case-lead::first-letter {
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.8;
+    font-weight: 700;
+    padding-right: 0.5rem;
+    color: var(--accent);
+  }
+
+  .case-body {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 700px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.8rem;
+  }
+
+  .meta-row span {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+  }
+
+  .case-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+  }
+
+  /* KPI grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .kpi-card {
+    border: 1px solid var(--line);
+    background: rgba(23, 23, 23, 0.7);
+    border-radius: 14px;
+    padding: 1.6rem;
+  }
+
+  .kpi-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  .kpi-label {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* Timeline-style list (proceso) */
+  .process-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .process-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1.2rem;
+  }
+
+  .process-num {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .process-content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .process-content p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    max-width: 620px;
+  }
+
+  /* Campaña destacada */
+  .campaign-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.2rem;
+  }
+
+  .campaign-table th,
+  .campaign-table td {
+    text-align: left;
+    padding: 0.9rem 0.5rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+
+  .campaign-table th {
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+
+  .campaign-table td.highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Comparativa competencia */
+  .bench-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .bench-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .bench-name {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  .bench-name.is-self {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .bench-track {
+    height: 10px;
+    border-radius: 999px;
+    background: var(--line);
+    overflow: hidden;
+  }
+
+  .bench-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--muted);
+  }
+
+  .bench-fill.is-self {
+    background: var(--accent);
+  }
+
+  .bench-value {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .bench-value.is-self {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .bench-note {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 1.4rem;
+  }
+
+  .case-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .back-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover { color: var(--accent); }
+
+  footer {
+    position: relative;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .framer-credit {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .framer-credit:hover { opacity: 1; }
+
+  @media (max-width: 600px) {
+    header { padding: 1.2rem 1.2rem; }
+    nav ul { gap: 1.2rem; }
+    section { padding: 4rem 1.2rem; }
+    .text-card { padding: 1.2rem; }
+    .bench-row {
+      grid-template-columns: 100px 1fr 50px;
+    }
+    .campaign-table { display: block; overflow-x: auto; }
+  }
+
+  #preloader {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  #preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  #preloader-count {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+  }
+
+  body.loading {
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <span id="preloader-count">0%</span>
+</div>
+<script>
+  if (sessionStorage.getItem('visited')) {
+    document.getElementById('preloader').style.display = 'none';
+  } else {
+    document.body.classList.add('loading');
+  }
+</script>
+
+<div id="app">
+  <canvas id="canvas"></canvas>
+</div>
+
+<header>
+  <a href="index.html" class="logo"><img src="Assets/N mk1-02.png" alt="Nestor Arbona"></a>
+  <nav>
+    <ul>
+      <li><a href="sobre-mi.html">Quién soy</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="case-editorial">
+  <h1 class="case-title">SEAT Miferauto</h1>
+  <p class="case-lead">Redes sociales, contenido y campañas de pago para SEAT Miferauto, concesionario oficial con presencia en Xàtiva, Gandía, Alzira, Alcoy y Ontinyent, con el reto de convertir varios puntos de venta locales en una comunidad activa y en leads reales, no solo en "me gusta".</p>
+  <div class="meta-row">
+    <span>Instagram &amp; Facebook</span>
+    <span>Meta Ads</span>
+    <span>Google Business Profile</span>
+    <span>Grupo Motor Pacífico · 2022–actualidad</span>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">01 — El reto</p>
+    <p class="case-body">Miferauto ya tenía redes activas, pero con crecimiento plano y sin conexión clara entre el contenido y las ventas. El objetivo no era una sola palanca, sino que todas trabajasen juntas: hacer crecer la comunidad de forma sostenida, mantener el ritmo de publicación sin perder calidad, y que esa base orgánica sostuviera la inversión en Meta Ads y Google Ads, convirtiéndola en leads medibles para el concesionario.</p>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">02 — Qué hice</p>
+    <div class="process-list">
+      <div class="process-item">
+        <span class="process-num">01</span>
+        <div class="process-content">
+          <h3>Contenido semanal en Instagram y Facebook</h3>
+          <p>Entregas de coches, presencia en ferias locales, equipo del concesionario y novedades de modelo, combinando posts, reels e historias de forma constante.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">02</span>
+        <div class="process-content">
+          <h3>Campañas de Meta Ads orientadas a leads</h3>
+          <p>Segmentación por zonas de influencia de cada concesión (Xàtiva, Gandía, Alzira, Alcoy y Ontinyent), con foco tanto en vehículo nuevo como de ocasión y financiación, optimizando por coste por clic y no solo por alcance.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">03</span>
+        <div class="process-content">
+          <h3>Gestión de Google Business Profile</h3>
+          <p>Reseñas, ficha actualizada y contenido geolocalizado para captar búsquedas de "SEAT Xàtiva" y "coches segunda mano Xàtiva".</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">03 — Resultados</p>
+    <p class="case-subtitle">Datos del periodo gestionado, comparados con el periodo anterior.</p>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <p class="kpi-number">+67%</p>
+        <p class="kpi-label">Seguidores en Instagram</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-number">7,19M</p>
+        <p class="kpi-label">Impresiones combinadas (+1362%)</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-number">+329%</p>
+        <p class="kpi-label">Interacciones totales</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-number">7.459</p>
+        <p class="kpi-label">Clics desde Google Business (web, teléfono, cómo llegar)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">04 — Campaña destacada</p>
+    <p class="case-subtitle">Campaña de Meta Ads para captación de leads en vehículo de ocasión.</p>
+    <table class="campaign-table">
+      <thead>
+        <tr>
+          <th>Impresiones</th>
+          <th>Clics</th>
+          <th>CPC</th>
+          <th>Inversión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>53.570</td>
+          <td>1.188</td>
+          <td class="highlight">0,12 €</td>
+          <td>144,46 €</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="case-body" style="margin-top: 1.2rem;">Con menos de 150 € de inversión, la campaña generó más de mil clics cualificados hacia el formulario de leads, muy por debajo del coste por clic medio del sector para automoción local.</p>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">05 — Frente a la competencia</p>
+    <p class="case-subtitle">Engagement rate en Instagram, comparado con cuentas de concesionarios de la misma zona.</p>
+    <div class="bench-list">
+      <div class="bench-row">
+        <span class="bench-name is-self">SEAT Miferauto</span>
+        <div class="bench-track"><div class="bench-fill is-self" style="width: 82%;"></div></div>
+        <span class="bench-value is-self">0,89</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-name">Škoda Motor Pacífico</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 55%;"></div></div>
+        <span class="bench-value">0,59</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-name">Audi Motor Pacífico</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 51%;"></div></div>
+        <span class="bench-value">0,55</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-name">Volkswagen Motor Pacífico</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 50%;"></div></div>
+        <span class="bench-value">0,54</span>
+      </div>
+      <div class="bench-row">
+        <span class="bench-name">SEAT España (nacional)</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 30%;"></div></div>
+        <span class="bench-value">0,32</span>
+      </div>
+    </div>
+    <p class="bench-note">Engagement por seguidor sobre me gusta + comentarios. SEAT Miferauto supera a todas las cuentas de concesionario de la zona, incluida la cuenta nacional de la marca.</p>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0; padding-bottom: 8rem;">
+  <div class="case-nav">
+    <a href="index.html#portfolio" class="back-link">← Volver al portfolio</a>
+    <a href="index.html#contacto" class="btn btn-primary">¿Hablamos?</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Nestor Arbona. Todos los derechos reservados.
+  <a class="framer-credit" target="_blank" href="https://www.framer.com/@kevin-levron/">Framer Component</a>
+</footer>
+
+<script>
+  if (document.body.classList.contains('loading')) {
+    const preloader = document.getElementById('preloader');
+    const counter = document.getElementById('preloader-count');
+    let progress = 0;
+
+    const tick = () => {
+      progress += Math.random() * 8 + 2;
+      if (progress >= 100) {
+        progress = 100;
+        counter.textContent = '100%';
+        preloader.classList.add('hidden');
+        document.body.classList.remove('loading');
+        sessionStorage.setItem('visited', 'true');
+        return;
+      }
+      counter.textContent = Math.floor(progress) + '%';
+      setTimeout(tick, 80);
+    };
+
+    tick();
+  }
+</script>
+
+<script type="module">
+  // Licencia CC BY-NC-SA 4.0 — Attribution-NonCommercial-ShareAlike
+  // Componente original: https://www.framer.com/@kevin-levron/
+  import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
+
+  const app = TubesCursor(document.getElementById('canvas'), {
+    tubes: {
+      colors: ["#f967fb", "#53bc28", "#6958d5"],
+      lights: {
+        intensity: 200,
+        colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
+      }
+    }
+  })
+
+  document.body.addEventListener('click', () => {
+    const colors = randomColors(3)
+    const lightsColors = randomColors(4)
+    app.tubes.setColors(colors)
+    app.tubes.setLightsColors(lightsColors)
+  })
+
+  function randomColors(count) {
+    return new Array(count)
+      .fill(0)
+      .map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
+  }
+</script>
+
+</body>
+</html>

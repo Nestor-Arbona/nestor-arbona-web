@@ -254,57 +254,164 @@
     color: var(--text);
   }
 
-  /* Portfolio */
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+  /* Portfolio — carrusel 3D */
+  .carousel-wrap {
+    position: relative;
+    max-width: 340px;
+    margin: 0 auto;
   }
 
-  .project-card {
+  .carousel-viewport {
+    perspective: 1400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-stage {
+    --card-w: 300px;
+    --card-h: 380px;
+    --card-z: 287px;
+    position: relative;
+    width: var(--card-w);
+    height: var(--card-h);
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.68, -0.2, 0.32, 1.15);
+  }
+
+  .carousel-card {
+    position: absolute;
+    inset: 0;
+    width: var(--card-w);
+    height: var(--card-h);
     border: 1px solid var(--line);
-    background: rgba(23, 23, 23, 0.7);
+    background: rgba(23, 23, 23, 0.85);
     border-radius: 14px;
     padding: 1.8rem;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    backface-visibility: hidden;
+    pointer-events: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .project-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--muted);
+  .carousel-card[aria-hidden="false"] {
+    pointer-events: auto;
   }
 
-  .project-card .tag {
+  .carousel-card[aria-hidden="false"]:hover {
+    border-color: #ffde00;
+    box-shadow: 0 0 24px rgba(255, 222, 0, 0.08);
+  }
+
+  .carousel-card:nth-child(1) { transform: rotateY(0deg) translateZ(var(--card-z)); }
+  .carousel-card:nth-child(2) { transform: rotateY(120deg) translateZ(var(--card-z)); }
+  .carousel-card:nth-child(3) { transform: rotateY(240deg) translateZ(var(--card-z)); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .brand-icon {
+    height: 34px;
+    width: auto;
+    flex-shrink: 0;
+    opacity: 0.95;
+  }
+
+  .brand-icon.placeholder {
+    height: 34px;
+    width: 34px;
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+  }
+
+  .carousel-card .tag {
     font-size: 0.75rem;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
-  .project-card h3 {
+  .carousel-card h3 {
     font-size: 1.15rem;
     margin: 0.6rem 0 0.6rem;
     letter-spacing: -0.01em;
   }
 
-  .project-card p {
+  .carousel-card p {
     color: var(--muted);
     font-size: 0.92rem;
+    flex: 1;
   }
 
-  .project-card a {
+  .carousel-card a {
     display: inline-block;
     margin-top: 1rem;
     font-size: 0.85rem;
     color: var(--text);
     text-decoration: none;
     border-bottom: 1px solid var(--text);
+    align-self: flex-start;
     transition: color 0.2s ease, border-color 0.2s ease;
   }
 
-  .project-card a:hover {
+  .carousel-card a:hover {
     color: #ffde00;
     border-color: #ffde00;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .carousel-btn:hover {
+    border-color: #ffde00;
+    color: #ffde00;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--line);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .carousel-dot.active {
+    background: #ffde00;
   }
 
   /* Contacto */
@@ -395,6 +502,9 @@
     header { padding: 1.2rem 1.2rem; }
     nav ul { gap: 1.2rem; }
     section { padding: 4rem 1.2rem; }
+    .carousel-wrap { max-width: 260px; }
+    .carousel-viewport { height: 360px; }
+    .carousel-stage { --card-w: 220px; --card-h: 340px; --card-z: 210px; }
   }
 
   #preloader {
@@ -479,24 +589,42 @@
 
 <section id="portfolio">
   <h2 class="section-title">Portfolio</h2>
-  <div class="projects">
-    <div class="project-card">
-      <span class="tag">Proyecto 01</span>
-      <h3>Nombre del proyecto</h3>
-      <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
-      <a href="#">Ver proyecto →</a>
+  <div class="carousel-wrap">
+    <div class="carousel-viewport">
+      <div class="carousel-stage" id="carouselStage">
+        <div class="carousel-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/seat-icon-white.png" alt="SEAT">
+            <span class="tag">Automoción · Social &amp; Paid Media</span>
+          </div>
+          <h3>SEAT Miferauto</h3>
+          <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
+          <a href="caso-seat-miferauto.html">Ver caso →</a>
+        </div>
+        <div class="carousel-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="CUPRA">
+            <span class="tag">Automoción · Social &amp; Paid Media</span>
+          </div>
+          <h3>CUPRA Miferauto</h3>
+          <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
+          <a href="caso-cupra-miferauto.html">Ver caso →</a>
+        </div>
+        <div class="carousel-card">
+          <div class="card-header">
+            <span class="brand-icon placeholder" aria-hidden="true"></span>
+            <span class="tag">Proyecto 03</span>
+          </div>
+          <h3>Nombre del proyecto</h3>
+          <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
+          <a href="#">Ver proyecto →</a>
+        </div>
+      </div>
     </div>
-    <div class="project-card">
-      <span class="tag">Proyecto 02</span>
-      <h3>Nombre del proyecto</h3>
-      <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
-      <a href="#">Ver proyecto →</a>
-    </div>
-    <div class="project-card">
-      <span class="tag">Proyecto 03</span>
-      <h3>Nombre del proyecto</h3>
-      <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
-      <a href="#">Ver proyecto →</a>
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="carouselPrev" aria-label="Proyecto anterior">‹</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-btn" id="carouselNext" aria-label="Siguiente proyecto">›</button>
     </div>
   </div>
 </section>
@@ -574,6 +702,60 @@
   }, { threshold: 0.5 });
 
   twObserver.observe(twEl);
+</script>
+
+<script>
+  (function () {
+    const stage = document.getElementById('carouselStage');
+    if (!stage) return;
+    const cards = Array.from(stage.querySelectorAll('.carousel-card'));
+    const dotsWrap = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    const total = cards.length;
+    let current = 0;
+    let rotation = 0;
+
+    cards.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
+
+    function getCardZ() {
+      return parseFloat(getComputedStyle(stage).getPropertyValue('--card-z')) || 0;
+    }
+
+    function render() {
+      const z = getCardZ();
+      stage.style.transform = 'translateZ(' + (-z) + 'px) rotateY(' + rotation + 'deg)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      cards.forEach((c, i) => {
+        const isActive = i === current;
+        c.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        const link = c.querySelector('a');
+        if (link) link.tabIndex = isActive ? 0 : -1;
+      });
+    }
+
+    function goTo(index) {
+      let diff = index - current;
+      if (diff > total / 2) diff -= total;
+      if (diff < -total / 2) diff += total;
+      rotation -= diff * (360 / total);
+      current = index;
+      render();
+    }
+
+    prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
+    nextBtn.addEventListener('click', () => goTo((current + 1) % total));
+    window.addEventListener('resize', render);
+
+    render();
+  })();
 </script>
 
 <script type="module">
