@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso Škoda Motor Pacífico — Nestor Arbona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000000;
+    --text: #ffffff;
+    --muted: #a0a0a0;
+    --accent: #ffde00;
+    --line: #262626;
+    --card-bg: #171717;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; background: var(--bg); }
+
+  ::selection {
+    background: #ffde00;
+    color: #111111;
+  }
+
+  body {
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: transparent;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.35) 65%, rgba(0, 0, 0, 0) 100%);
+    z-index: 100;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 3rem;
+  }
+
+  .logo img {
+    height: 56px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  #app {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    touch-action: none;
+  }
+
+  #canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .case-editorial {
+    position: relative;
+    padding-top: 10rem;
+  }
+
+  .text-card {
+    background: rgba(23, 23, 23, 0.7);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.8rem;
+  }
+
+  .case-index {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 2.5rem;
+  }
+
+  .case-kicker {
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .case-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+
+  .case-lead {
+    font-size: 1.3rem;
+    color: var(--text);
+    max-width: 700px;
+    margin-bottom: 1.8rem;
+  }
+
+  .case-lead::first-letter {
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.8;
+    font-weight: 700;
+    padding-right: 0.5rem;
+    color: var(--accent);
+  }
+
+  .case-body {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 700px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.8rem;
+  }
+
+  .meta-row span {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+  }
+
+  .case-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+  }
+
+  /* KPI grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .kpi-card {
+    border: 1px solid var(--line);
+    background: rgba(23, 23, 23, 0.7);
+    border-radius: 14px;
+    padding: 1.6rem;
+  }
+
+  .kpi-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  .kpi-label {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* Timeline-style list (proceso) */
+  .process-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .process-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1.2rem;
+  }
+
+  .process-num {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .process-content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .process-content p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    max-width: 620px;
+  }
+
+  /* Campaña destacada */
+  .campaign-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.2rem;
+  }
+
+  .campaign-table th,
+  .campaign-table td {
+    text-align: left;
+    padding: 0.9rem 0.5rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+
+  .campaign-table th {
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+
+  .campaign-table td.highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Comparativa competencia */
+  .bench-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .bench-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .bench-name {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  .bench-name.is-self {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .bench-track {
+    height: 10px;
+    border-radius: 999px;
+    background: var(--line);
+    overflow: hidden;
+  }
+
+  .bench-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--muted);
+  }
+
+  .bench-fill.is-self {
+    background: var(--accent);
+  }
+
+  .bench-value {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .bench-value.is-self {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .bench-note {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 1.4rem;
+  }
+
+  /* Hitos */
+  .hito-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .hito-item {
+    border-top: 1px solid var(--line);
+    padding-top: 1.8rem;
+  }
+
+  .hito-item:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .hito-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .hito-item p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    max-width: 640px;
+  }
+
+  .hito-media {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+
+  .hito-media figure {
+    margin: 0;
+  }
+
+  .hito-media img {
+    max-height: 320px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+
+  .hito-media figcaption {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 0.5rem;
+    max-width: 240px;
+  }
+
+  .hito-reel {
+    margin-top: 1.2rem;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .hito-reel iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+    display: block;
+  }
+
+  /* Cita */
+  .case-quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.2rem;
+    margin: 1.6rem 0;
+    color: var(--text);
+    font-size: 1.05rem;
+    font-style: italic;
+    max-width: 640px;
+  }
+
+  .case-quote cite {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* Foto del evento */
+  .case-photo {
+    margin-top: 1.6rem;
+  }
+
+  .case-photo img {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+
+  .case-photo figcaption {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.7rem;
+  }
+
+  /* Repercusión en medios */
+  .press-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+  }
+
+  .press-list a {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .press-list a:hover {
+    border-color: #ffde00;
+    color: #ffde00;
+  }
+
+  .case-embed {
+    margin-top: 1.6rem;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .case-embed iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+    display: block;
+  }
+
+  .case-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .back-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover { color: var(--accent); }
+
+  footer {
+    position: relative;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .framer-credit {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .framer-credit:hover { opacity: 1; }
+
+  @media (max-width: 600px) {
+    header { padding: 1.2rem 1.2rem; }
+    nav ul { gap: 1.2rem; }
+    section { padding: 4rem 1.2rem; }
+    .text-card { padding: 1.2rem; }
+    .bench-row {
+      grid-template-columns: 100px 1fr 50px;
+    }
+    .campaign-table { display: block; overflow-x: auto; }
+    .hito-media img { max-height: 260px; }
+    .hito-reel { max-width: 100%; }
+    .hito-reel iframe { height: 520px; }
+    .case-embed { max-width: 100%; }
+    .case-embed iframe { height: 520px; }
+  }
+
+  #preloader {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  #preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  #preloader-count {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+  }
+
+  body.loading {
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <span id="preloader-count">0%</span>
+</div>
+<script>
+  if (sessionStorage.getItem('visited')) {
+    document.getElementById('preloader').style.display = 'none';
+  } else {
+    document.body.classList.add('loading');
+  }
+</script>
+
+<div id="app">
+  <canvas id="canvas"></canvas>
+</div>
+
+<header>
+  <a href="index.html" class="logo"><img src="Assets/N mk1-02.png" alt="Nestor Arbona"></a>
+  <nav>
+    <ul>
+      <li><a href="sobre-mi.html">Quién soy</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="case-editorial">
+  <h1 class="case-title">Škoda Motor Pacífico</h1>
+  <p class="case-lead">Organización, relación con prensa y cobertura en redes de la inauguración del nuevo concesionario Škoda Motor Pacífico en Alzira: un acto que arrancó con una caravana desde Xàtiva y reunió a directivos de Škoda España, Grupo Motor Pacífico, Grupo Ibérica y a las autoridades locales.</p>
+  <div class="meta-row">
+    <span>Organización de evento</span>
+    <span>Relación con prensa</span>
+    <span>Contenido &amp; redes</span>
+    <span>Škoda Motor Pacífico · nov. 2025</span>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">01 — El reto</p>
+    <p class="case-body">La apertura del concesionario de Alzira no era un acto de un solo punto: implicaba mover a prensa y directivos desde las instalaciones de Xàtiva en una caravana hasta el nuevo espacio, encajar los tiempos de Škoda España, Grupo Ibérica y las autoridades de Alzira, y generar contenido en el momento sin perder ninguno de los instantes clave del acto. Trabajando junto al resto del departamento de marketing, mi parte fue que la logística, la prensa y las redes encajaran a la vez.</p>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">02 — Qué hice</p>
+    <div class="process-list">
+      <div class="process-item">
+        <span class="process-num">01</span>
+        <div class="process-content">
+          <h3>Organización de la caravana Xàtiva → Alzira</h3>
+          <p>Coordinación de horarios y del desplazamiento conjunto de prensa y directivos entre las instalaciones renovadas de Xàtiva y el nuevo concesionario de Alzira.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">02</span>
+        <div class="process-content">
+          <h3>Relación con prensa y gabinete de comunicación</h3>
+          <p>Punto de contacto durante el acto con los medios que cubrieron la inauguración, y apoyo en la nota de prensa oficial del evento.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">03</span>
+        <div class="process-content">
+          <h3>Cobertura en redes en directo</h3>
+          <p>Fotografía y vídeo del acto en Xàtiva y Alzira para tener material propio con el que construir el contenido posterior.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">04</span>
+        <div class="process-content">
+          <h3>Contenido publicado del evento</h3>
+          <p>Edición y publicación en Instagram del resumen de la jornada, ya con el concesionario de Alzira abierto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">03 — El día de la inauguración</p>
+    <p class="case-body">El 13 de noviembre de 2025, Škoda Motor Pacífico inauguró su nuevo concesionario en Alzira, gestionado por Motor Pacífico Premium (Grupo Ibérica). Por la mañana, prensa y directivos hicieron el recorrido desde las instalaciones renovadas de Xàtiva hasta Alzira; por la tarde, un acto interno reunió al equipo para celebrar el nuevo paso. Al acto asistieron Fidel Jiménez de Parga (director general de Škoda España) y Carlos Calatayud (director de Ventas), Fernando Núñez Rebolo (presidente de Grupo Motor Pacífico y Grupo Ibérica) y Miguel Buendía (CEO de Grupo Motor Pacífico), junto con Alfons Domínguez Gento (alcalde de Alzira), Laura Sáez Martínez (diputada de Hacienda) y Marián Cano (consejera de Innovación, Industria, Comercio y Turismo).</p>
+    <blockquote class="case-quote">
+      "Alzira y Xàtiva suman más de 75.000 habitantes y representan zonas de gran dinamismo."
+      <cite>Fidel Jiménez de Parga, director general de Škoda España</cite>
+    </blockquote>
+    <figure class="case-photo">
+      <img src="Assets/skoda-inauguracion-alzira.jpg" alt="Directivos de Škoda España, Grupo Motor Pacífico, Grupo Ibérica y autoridades de Alzira junto al equipo de Motor Pacífico en la inauguración">
+      <figcaption>Directivos de Škoda España, Grupo Motor Pacífico, Grupo Ibérica y autoridades de Alzira, junto al equipo de Motor Pacífico.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">04 — Repercusión en medios y redes</p>
+    <p class="case-body">El acto tuvo cobertura en medios locales y del sector, además de la comunicación oficial de la marca.</p>
+    <div class="press-list">
+      <a href="https://comunicacion.skoda.es/2025/11/13/skoda-apuesta-por-la-comunidad-valenciana-con-un-nuevo-concesionario-en-alzira-de-la-mano-de-motor-pacifico/" target="_blank" rel="noopener">Škoda Comunicación</a>
+      <a href="https://www.grupoiberica.com/skoda-motor-pacifico-inaugura-su-nuevo-concesionario-en-alzira" target="_blank" rel="noopener">Grupo Ibérica</a>
+      <a href="https://cadenaser.com/comunitat-valenciana/2025/11/14/skoda-motor-pacifico-llega-a-alzira-innovacion-y-confianza-sobre-ruedas-radio-xativa/" target="_blank" rel="noopener">Cadena SER</a>
+      <a href="https://www.elperiodic.com/alzira/koda-impulsa-camino-hacia-liderazgo-apertura-nuevo-concesionario-motor-pacifico-alzira_1045405" target="_blank" rel="noopener">El Periódic</a>
+      <a href="https://actualidadvalencia.com/skoda-alzira-nuevo-concesionario-motor-pacifico/" target="_blank" rel="noopener">Actualidad Valencia</a>
+      <a href="https://diaridigital.es/skoda-motor-pacifico-extiende-a-alzira-su-apuesta-por-la-comunidad-valenciana-abriendo-un-nuevo-concesionario-despues-del-de-xativa/" target="_blank" rel="noopener">Diari Digital</a>
+      <a href="https://www.copeintercomarcas.com/skoda-expande-su-presencia-en-la-comunidad-valenciana-con-nuevo-concesionario-en-alzira/" target="_blank" rel="noopener">COPE InterComarcas</a>
+      <a href="https://www.posventa.com/texto-diario/mostrar/5680182/skoda-suma-concesionario-alzira-mano-motor-pacifico" target="_blank" rel="noopener">Posventa</a>
+    </div>
+    <div class="case-embed">
+      <iframe src="https://www.instagram.com/p/DRC2qskjdY9/embed" allowtransparency="true" scrolling="no" title="Publicación en Instagram sobre la inauguración de Škoda Motor Pacífico en Alzira"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0; padding-bottom: 8rem;">
+  <div class="case-nav">
+    <a href="index.html#portfolio" class="back-link">← Volver al portfolio</a>
+    <a href="index.html#contacto" class="btn btn-primary">¿Hablamos?</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Nestor Arbona. Todos los derechos reservados.
+  <a class="framer-credit" target="_blank" href="https://www.framer.com/@kevin-levron/">Framer Component</a>
+</footer>
+
+<script>
+  if (document.body.classList.contains('loading')) {
+    const preloader = document.getElementById('preloader');
+    const counter = document.getElementById('preloader-count');
+    let progress = 0;
+
+    const tick = () => {
+      progress += Math.random() * 8 + 2;
+      if (progress >= 100) {
+        progress = 100;
+        counter.textContent = '100%';
+        preloader.classList.add('hidden');
+        document.body.classList.remove('loading');
+        sessionStorage.setItem('visited', 'true');
+        return;
+      }
+      counter.textContent = Math.floor(progress) + '%';
+      setTimeout(tick, 80);
+    };
+
+    tick();
+  }
+</script>
+
+<script type="module">
+  // Licencia CC BY-NC-SA 4.0 — Attribution-NonCommercial-ShareAlike
+  // Componente original: https://www.framer.com/@kevin-levron/
+  import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
+
+  const app = TubesCursor(document.getElementById('canvas'), {
+    tubes: {
+      colors: ["#f967fb", "#53bc28", "#6958d5"],
+      lights: {
+        intensity: 200,
+        colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
+      }
+    }
+  })
+
+  document.body.addEventListener('click', () => {
+    const colors = randomColors(3)
+    const lightsColors = randomColors(4)
+    app.tubes.setColors(colors)
+    app.tubes.setLightsColors(lightsColors)
+  })
+
+  function randomColors(count) {
+    return new Array(count)
+      .fill(0)
+      .map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
+  }
+</script>
+
+</body>
+</html>

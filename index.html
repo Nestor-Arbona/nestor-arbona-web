@@ -254,60 +254,92 @@
     color: var(--text);
   }
 
-  /* Portfolio — carrusel 3D */
-  .carousel-wrap {
-    position: relative;
-    max-width: 340px;
-    margin: 0 auto;
+  /* Portfolio — carrusel nativo (::scroll-button / ::scroll-marker) */
+  .pf-hint {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
   }
 
-  .carousel-viewport {
-    perspective: 1400px;
-    height: 400px;
+  @supports selector(::scroll-marker-group) {
+    .pf-hint { display: none; }
+  }
+
+  .pf-carousel {
+    --pf-btn-size: 40px;
+    --pf-card-w: min(300px, 78vw);
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 2rem 0 4.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--pf-card-w);
+    gap: 1.5rem;
+    anchor-name: --pf-carousel;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .pf-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pf-carousel::before,
+  .pf-carousel::after {
+    content: '';
+  }
+
+  .pf-carousel {
+    scroll-marker-group: after;
+  }
+
+  .pf-carousel::scroll-marker-group {
+    position: absolute;
+    position-anchor: --pf-carousel;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    top: anchor(bottom);
+    left: anchor(left);
+    right: anchor(right);
+    padding-block-start: 1.5rem;
   }
 
-  .carousel-stage {
-    --card-w: 300px;
-    --card-h: 380px;
-    --card-z: 287px;
+  .pf-card {
     position: relative;
-    width: var(--card-w);
-    height: var(--card-h);
-    transform-style: preserve-3d;
-    transition: transform 0.9s cubic-bezier(0.68, -0.2, 0.32, 1.15);
-  }
-
-  .carousel-card {
-    position: absolute;
-    inset: 0;
-    width: var(--card-w);
-    height: var(--card-h);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    container-type: scroll-state;
     border: 1px solid var(--line);
     background: rgba(23, 23, 23, 0.85);
     border-radius: 14px;
     padding: 1.8rem;
     display: flex;
     flex-direction: column;
-    backface-visibility: hidden;
-    pointer-events: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: opacity 0.3s ease, scale 0.3s ease, border-color 0.3s ease;
   }
 
-  .carousel-card[aria-hidden="false"] {
-    pointer-events: auto;
+  .pf-card.scroll-start {
+    scroll-initial-target: nearest;
   }
 
-  .carousel-card[aria-hidden="false"]:hover {
+  @container not scroll-state(snapped: inline) {
+    .pf-card {
+      opacity: 0.5;
+      scale: 0.94;
+    }
+  }
+
+  .pf-card:hover {
     border-color: #ffde00;
-    box-shadow: 0 0 24px rgba(255, 222, 0, 0.08);
   }
-
-  .carousel-card:nth-child(1) { transform: rotateY(0deg) translateZ(var(--card-z)); }
-  .carousel-card:nth-child(2) { transform: rotateY(120deg) translateZ(var(--card-z)); }
-  .carousel-card:nth-child(3) { transform: rotateY(240deg) translateZ(var(--card-z)); }
 
   .card-header {
     display: flex;
@@ -330,19 +362,26 @@
     border-radius: 8px;
   }
 
-  .carousel-card h3 {
+  .pf-card .tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .pf-card h3 {
     font-size: 1.15rem;
-    margin: 0;
+    margin: 0.6rem 0 0.6rem;
     letter-spacing: -0.01em;
   }
 
-  .carousel-card p {
+  .pf-card p {
     color: var(--muted);
     font-size: 0.92rem;
     flex: 1;
   }
 
-  .carousel-card a {
+  .pf-card a {
     display: inline-block;
     margin-top: 1rem;
     font-size: 0.85rem;
@@ -353,58 +392,61 @@
     transition: color 0.2s ease, border-color 0.2s ease;
   }
 
-  .carousel-card a:hover {
+  .pf-card a:hover {
     color: #ffde00;
     border-color: #ffde00;
   }
 
-  .carousel-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
-    margin-top: 2rem;
-  }
-
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  .pf-carousel::scroll-button(*) {
+    position: absolute;
+    position-anchor: --pf-carousel;
+    width: var(--pf-btn-size);
+    aspect-ratio: 1;
+    font: inherit;
+    background-color: rgba(23, 23, 23, 0.9);
     border: 1px solid var(--line);
-    background: transparent;
+    display: grid;
+    place-content: center;
     color: var(--text);
-    font-size: 1.1rem;
-    line-height: 1;
+    border-radius: 50%;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: border-color 0.2s ease, color 0.2s ease;
   }
 
-  .carousel-btn:hover {
+  .pf-carousel::scroll-button(inline-start) {
+    content: '←';
+    left: calc(anchor(left) - var(--pf-btn-size) - 0.5rem);
+    top: anchor(center);
+  }
+
+  .pf-carousel::scroll-button(inline-end) {
+    content: '→';
+    right: calc(anchor(right) - var(--pf-btn-size) - 0.5rem);
+    top: anchor(center);
+  }
+
+  .pf-carousel::scroll-button(*):not(:disabled):hover {
     border-color: #ffde00;
     color: #ffde00;
   }
 
-  .carousel-dots {
-    display: flex;
-    gap: 0.5rem;
+  .pf-carousel::scroll-button(*):disabled {
+    opacity: 0.3;
+    cursor: default;
   }
 
-  .carousel-dot {
+  .pf-carousel::scroll-marker {
+    content: '';
     width: 8px;
     height: 8px;
-    padding: 0;
-    border: none;
     border-radius: 50%;
     background: var(--line);
-    cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, scale 0.2s ease;
   }
 
-  .carousel-dot.active {
+  .pf-carousel::scroll-marker:target-current {
     background: #ffde00;
+    scale: 1.2;
   }
 
   /* Contacto */
@@ -495,9 +537,7 @@
     header { padding: 1.2rem 1.2rem; }
     nav ul { gap: 1.2rem; }
     section { padding: 4rem 1.2rem; }
-    .carousel-wrap { max-width: 260px; }
-    .carousel-viewport { height: 360px; }
-    .carousel-stage { --card-w: 220px; --card-h: 340px; --card-z: 210px; }
+    .pf-carousel { --pf-btn-size: 34px; }
   }
 
   #preloader {
@@ -582,39 +622,31 @@
 
 <section id="portfolio">
   <h2 class="section-title">Portfolio</h2>
-  <div class="carousel-wrap">
-    <div class="carousel-viewport">
-      <div class="carousel-stage" id="carouselStage">
-        <div class="carousel-card">
-          <div class="card-header">
-            <img class="brand-icon" src="Assets/seat-icon-white.png" alt="SEAT">
-            <h3>SEAT Miferauto</h3>
-          </div>
-          <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
-          <a href="seat-miferauto.html">Ver caso →</a>
-        </div>
-        <div class="carousel-card">
-          <div class="card-header">
-            <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="CUPRA">
-            <h3>CUPRA Miferauto</h3>
-          </div>
-          <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
-          <a href="cupra-miferauto.html">Ver caso →</a>
-        </div>
-        <div class="carousel-card">
-          <div class="card-header">
-            <img class="brand-icon" src="Assets/Skoda MP blanco.png" alt="Škoda">
-            <h3>Škoda Motor Pacífico</h3>
-          </div>
-          <p>Breve descripción del proyecto, tecnologías usadas y el problema que resuelve.</p>
-          <a href="#">Ver proyecto →</a>
-        </div>
+  <p class="pf-hint">Desliza para ver todos los proyectos →</p>
+  <div class="pf-carousel">
+    <div class="pf-card scroll-start">
+      <div class="card-header">
+        <img class="brand-icon" src="Assets/seat-icon-white.png" alt="SEAT">
       </div>
+      <h3>SEAT Miferauto</h3>
+      <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
+      <a href="seat-miferauto.html">Ver caso →</a>
     </div>
-    <div class="carousel-controls">
-      <button class="carousel-btn" id="carouselPrev" aria-label="Proyecto anterior">‹</button>
-      <div class="carousel-dots" id="carouselDots"></div>
-      <button class="carousel-btn" id="carouselNext" aria-label="Siguiente proyecto">›</button>
+    <div class="pf-card">
+      <div class="card-header">
+        <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="CUPRA">
+      </div>
+      <h3>CUPRA Miferauto</h3>
+      <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
+      <a href="cupra-miferauto.html">Ver caso →</a>
+    </div>
+    <div class="pf-card">
+      <div class="card-header">
+        <img class="brand-icon" src="Assets/skoda-lockup-white.png" alt="Škoda Motor Pacífico">
+      </div>
+      <h3>Škoda Motor Pacífico</h3>
+      <p>Organización, prensa y redes en la inauguración del concesionario de Alzira, con directivos de Škoda España, Grupo Motor Pacífico y Grupo Ibérica.</p>
+      <a href="skoda-motor-pacifico.html">Ver caso →</a>
     </div>
   </div>
 </section>
@@ -692,60 +724,6 @@
   }, { threshold: 0.5 });
 
   twObserver.observe(twEl);
-</script>
-
-<script>
-  (function () {
-    const stage = document.getElementById('carouselStage');
-    if (!stage) return;
-    const cards = Array.from(stage.querySelectorAll('.carousel-card'));
-    const dotsWrap = document.getElementById('carouselDots');
-    const prevBtn = document.getElementById('carouselPrev');
-    const nextBtn = document.getElementById('carouselNext');
-    const total = cards.length;
-    let current = 0;
-    let rotation = 0;
-
-    cards.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
-      dot.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(dot);
-    });
-    const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
-
-    function getCardZ() {
-      return parseFloat(getComputedStyle(stage).getPropertyValue('--card-z')) || 0;
-    }
-
-    function render() {
-      const z = getCardZ();
-      stage.style.transform = 'translateZ(' + (-z) + 'px) rotateY(' + rotation + 'deg)';
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-      cards.forEach((c, i) => {
-        const isActive = i === current;
-        c.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        const link = c.querySelector('a');
-        if (link) link.tabIndex = isActive ? 0 : -1;
-      });
-    }
-
-    function goTo(index) {
-      let diff = index - current;
-      if (diff > total / 2) diff -= total;
-      if (diff < -total / 2) diff += total;
-      rotation -= diff * (360 / total);
-      current = index;
-      render();
-    }
-
-    prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
-    nextBtn.addEventListener('click', () => goTo((current + 1) % total));
-    window.addEventListener('resize', render);
-
-    render();
-  })();
 </script>
 
 <script type="module">
