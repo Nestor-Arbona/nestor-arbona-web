@@ -162,14 +162,14 @@
 
   .about-photo {
     flex: 0 0 260px;
-    height: 320px;
+    height: 300px;
     overflow: hidden;
     border-radius: 12px;
   }
 
   .about-photo img {
     width: 100%;
-    height: 130%;
+    height: calc(100% + 60px);
     object-fit: cover;
     display: block;
     filter: grayscale(1);
@@ -395,7 +395,7 @@
     .about-photo {
       flex: none;
       width: 180px;
-      height: 220px;
+      height: 200px;
     }
   }
 
@@ -582,7 +582,7 @@
     const updateParallax = () => {
       const rect = photoWrap.getBoundingClientRect();
       const center = rect.top + rect.height / 2 - window.innerHeight / 2;
-      const offset = center * -0.08;
+      const offset = Math.max(-25, Math.min(25, center * -0.04));
       parallaxPhoto.style.transform = `translateY(${offset}px)`;
       ticking = false;
     };
