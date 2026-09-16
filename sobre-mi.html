@@ -310,6 +310,55 @@
     color: #ffde00;
   }
 
+  /* Certificaciones */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .cert-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    background: rgba(23, 23, 23, 0.7);
+    border-radius: 14px;
+    padding: 1.4rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .cert-card:hover {
+    border-color: #ffde00;
+  }
+
+  .cert-badge {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .cert-info h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+
+  .cert-info p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
   footer {
     position: relative;
     text-align: center;
@@ -545,6 +594,35 @@
       <li><span class="education-num">03</span>Grado Superior en Gestión Comercial y Marketing</li>
       <li><span class="education-num">04</span>Grado Superior en Gestión de Venta y Espacios Comerciales</li>
     </ol>
+  </div>
+</section>
+
+<section class="about-editorial">
+  <div class="text-card">
+    <p class="about-index">04 — Certificaciones</p>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <span class="cert-badge" style="background: #ff7a59;">H</span>
+        <div class="cert-info">
+          <h3>Certificado en Email Marketing</h3>
+          <p>HubSpot · sept. 2026</p>
+        </div>
+      </div>
+      <div class="cert-card">
+        <span class="cert-badge" style="background: #ff7a59;">H</span>
+        <div class="cert-info">
+          <h3>Certificado en Inbound Marketing</h3>
+          <p>HubSpot · sept. 2026</p>
+        </div>
+      </div>
+      <div class="cert-card">
+        <span class="cert-badge" style="background: #c1d82f; color: #111;">M</span>
+        <div class="cert-info">
+          <h3>Metricool Expert</h3>
+          <p>Metricool · mar. 2026</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
