@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caso SEAT Miferauto — Nestor Arbona</title>
+<title>Caso Škoda Motor Pacífico — Nestor Arbona</title>
+<meta name="description" content="Organización, prensa y redes en la inauguración de Škoda Motor Pacífico en Alzira.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Caso Škoda Motor Pacífico — Néstor Arbona">
+<meta property="og:description" content="Organización, prensa y redes en la inauguración de Škoda Motor Pacífico en Alzira.">
+<meta property="og:image" content="https://www.nestorarbona.com/Assets/og-image.png">
+<meta property="og:url" content="https://www.nestorarbona.com/caso-skoda-miferauto.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Caso Škoda Motor Pacífico — Néstor Arbona">
+<meta name="twitter:description" content="Organización, prensa y redes en la inauguración de Škoda Motor Pacífico en Alzira.">
+<meta name="twitter:image" content="https://www.nestorarbona.com/Assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +29,7 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; background: var(--bg); overflow-x: hidden; }
+  html { scroll-behavior: smooth; background: var(--bg); }
 
   ::selection {
     background: #ffde00;
@@ -32,8 +42,6 @@
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    max-width: 100vw;
   }
 
   header {
@@ -78,37 +86,6 @@
   }
 
   nav a:hover { color: var(--accent); }
-
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 200;
-  }
-
-  .menu-toggle span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .menu-toggle.open span:nth-child(2) { opacity: 0; }
-  .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .nav-backdrop {
-    display: none;
-  }
 
   section {
     max-width: 860px;
@@ -356,6 +333,155 @@
     margin-top: 1.4rem;
   }
 
+  /* Hitos */
+  .hito-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .hito-item {
+    border-top: 1px solid var(--line);
+    padding-top: 1.8rem;
+  }
+
+  .hito-item:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .hito-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .hito-item p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    max-width: 640px;
+  }
+
+  .hito-media {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+
+  .hito-media figure {
+    margin: 0;
+  }
+
+  .hito-media img {
+    max-height: 320px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+
+  .hito-media figcaption {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 0.5rem;
+    max-width: 240px;
+  }
+
+  .hito-reel {
+    margin-top: 1.2rem;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .hito-reel iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+    display: block;
+  }
+
+  /* Cita */
+  .case-quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.2rem;
+    margin: 1.6rem 0;
+    color: var(--text);
+    font-size: 1.05rem;
+    font-style: italic;
+    max-width: 640px;
+  }
+
+  .case-quote cite {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* Foto del evento */
+  .case-photo {
+    margin-top: 1.6rem;
+  }
+
+  .case-photo img {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+
+  .case-photo figcaption {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 0.7rem;
+  }
+
+  /* Repercusión en medios */
+  .press-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+  }
+
+  .press-list a {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .press-list a:hover {
+    border-color: #ffde00;
+    color: #ffde00;
+  }
+
+  .case-embed {
+    margin-top: 1.6rem;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .case-embed iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+    display: block;
+  }
+
   .case-nav {
     display: flex;
     justify-content: space-between;
@@ -413,67 +539,18 @@
 
   @media (max-width: 600px) {
     header { padding: 1.2rem 1.2rem; }
-    .logo { margin-left: 0; }
-    .logo img { height: 42px; }
-
-    .menu-toggle {
-      display: flex;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100vh;
-      width: 70%;
-      max-width: 280px;
-      background: rgba(10, 10, 10, 0.97);
-      backdrop-filter: blur(10px);
-      border-left: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      z-index: 150;
-    }
-
-    nav.open {
-      transform: translateX(0);
-    }
-
-    nav ul {
-      flex-direction: column;
-      gap: 2rem;
-      text-align: center;
-    }
-
-    nav a {
-      font-size: 1.1rem;
-    }
-
-    .nav-backdrop {
-      display: block;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 90;
-    }
-
-    .nav-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
+    nav ul { gap: 1.2rem; }
     section { padding: 4rem 1.2rem; }
     .text-card { padding: 1.2rem; }
     .bench-row {
       grid-template-columns: 100px 1fr 50px;
     }
     .campaign-table { display: block; overflow-x: auto; }
+    .hito-media img { max-height: 260px; }
+    .hito-reel { max-width: 100%; }
+    .hito-reel iframe { height: 520px; }
+    .case-embed { max-width: 100%; }
+    .case-embed iframe { height: 520px; }
   }
 
   #preloader {
@@ -523,12 +600,7 @@
 
 <header>
   <a href="index.html" class="logo"><img src="Assets/Nestor Arbona Logo.png" alt="Nestor Arbona"></a>
-  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <nav id="mainNav">
+  <nav>
     <ul>
       <li><a href="sobre-mi.html">Quién soy</a></li>
       <li><a href="index.html#portfolio">Portfolio</a></li>
@@ -536,45 +608,22 @@
     </ul>
   </nav>
 </header>
-<div class="nav-backdrop" id="navBackdrop"></div>
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
-  const navBackdrop = document.getElementById('navBackdrop');
-
-  function closeMenu() {
-    menuToggle.classList.remove('open');
-    mainNav.classList.remove('open');
-    navBackdrop.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-  }
-
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mainNav.classList.toggle('open');
-    menuToggle.classList.toggle('open', isOpen);
-    navBackdrop.classList.toggle('open', isOpen);
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  navBackdrop.addEventListener('click', closeMenu);
-  mainNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-</script>
 
 <section class="case-editorial">
-  <h1 class="case-title">SEAT Miferauto</h1>
-  <p class="case-lead">Redes sociales, contenido y campañas de pago para SEAT Miferauto, concesionario oficial con presencia en Xàtiva, Gandía, Alzira, Alcoy y Ontinyent, con el reto de convertir varios puntos de venta locales en una comunidad activa y en leads reales, no solo en "me gusta".</p>
+  <h1 class="case-title">Škoda Motor Pacífico</h1>
+  <p class="case-lead">Organización, relación con prensa y cobertura en redes de la inauguración del nuevo concesionario Škoda Motor Pacífico en Alzira: un acto que arrancó con una caravana desde Xàtiva y reunió a directivos de Škoda España, Grupo Motor Pacífico, Grupo Ibérica y a las autoridades locales.</p>
   <div class="meta-row">
-    <span>Instagram &amp; Facebook</span>
-    <span>Meta Ads</span>
-    <span>Google Business Profile</span>
-    <span>Grupo Motor Pacífico · 2022–actualidad</span>
+    <span>Organización de evento</span>
+    <span>Relación con prensa</span>
+    <span>Contenido &amp; redes</span>
+    <span>Škoda Motor Pacífico · nov. 2025</span>
   </div>
 </section>
 
 <section class="case-editorial" style="padding-top: 0;">
   <div class="text-card">
     <p class="case-index">01 — El reto</p>
-    <p class="case-body">Miferauto ya tenía redes activas, pero con crecimiento plano y sin conexión clara entre el contenido y las ventas. El objetivo no era una sola palanca, sino que todas trabajasen juntas: hacer crecer la comunidad de forma sostenida, mantener el ritmo de publicación sin perder calidad, y que esa base orgánica sostuviera la inversión en Meta Ads y Google Ads, convirtiéndola en leads medibles para el concesionario.</p>
+    <p class="case-body">La apertura del concesionario de Alzira no era un acto de un solo punto: implicaba mover a prensa y directivos desde las instalaciones de Xàtiva en una caravana hasta el nuevo espacio, encajar los tiempos de Škoda España, Grupo Ibérica y las autoridades de Alzira, y generar contenido en el momento sin perder ninguno de los instantes clave del acto. Trabajando junto al resto del departamento de marketing, mi parte fue que la logística, la prensa y las redes encajaran a la vez.</p>
   </div>
 </section>
 
@@ -585,22 +634,29 @@
       <div class="process-item">
         <span class="process-num">01</span>
         <div class="process-content">
-          <h3>Contenido semanal en Instagram y Facebook</h3>
-          <p>Entregas de coches, presencia en ferias locales, equipo del concesionario y novedades de modelo, combinando posts, reels e historias de forma constante.</p>
+          <h3>Organización de la caravana Xàtiva → Alzira</h3>
+          <p>Coordinación de horarios y del desplazamiento conjunto de prensa y directivos entre las instalaciones renovadas de Xàtiva y el nuevo concesionario de Alzira.</p>
         </div>
       </div>
       <div class="process-item">
         <span class="process-num">02</span>
         <div class="process-content">
-          <h3>Campañas de Meta Ads orientadas a leads</h3>
-          <p>Segmentación por zonas de influencia de cada concesión (Xàtiva, Gandía, Alzira, Alcoy y Ontinyent), con foco tanto en vehículo nuevo como de ocasión y financiación, optimizando por coste por clic y no solo por alcance.</p>
+          <h3>Relación con prensa y gabinete de comunicación</h3>
+          <p>Punto de contacto durante el acto con los medios que cubrieron la inauguración, y apoyo en la nota de prensa oficial del evento.</p>
         </div>
       </div>
       <div class="process-item">
         <span class="process-num">03</span>
         <div class="process-content">
-          <h3>Gestión de Google Business Profile</h3>
-          <p>Reseñas, ficha actualizada y contenido geolocalizado para captar búsquedas de "SEAT Xàtiva" y "coches segunda mano Xàtiva".</p>
+          <h3>Cobertura en redes en directo</h3>
+          <p>Fotografía y vídeo del acto en Xàtiva y Alzira para tener material propio con el que construir el contenido posterior.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">04</span>
+        <div class="process-content">
+          <h3>Contenido publicado del evento</h3>
+          <p>Edición y publicación en Instagram del resumen de la jornada, ya con el concesionario de Alzira abierto.</p>
         </div>
       </div>
     </div>
@@ -609,87 +665,36 @@
 
 <section class="case-editorial" style="padding-top: 0;">
   <div class="text-card">
-    <p class="case-index">03 — Resultados</p>
-    <p class="case-subtitle">Datos del periodo gestionado, comparados con el periodo anterior.</p>
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <p class="kpi-number">+67%</p>
-        <p class="kpi-label">Seguidores en Instagram</p>
-      </div>
-      <div class="kpi-card">
-        <p class="kpi-number">7,19M</p>
-        <p class="kpi-label">Impresiones combinadas (+1362%)</p>
-      </div>
-      <div class="kpi-card">
-        <p class="kpi-number">+329%</p>
-        <p class="kpi-label">Interacciones totales</p>
-      </div>
-      <div class="kpi-card">
-        <p class="kpi-number">7.459</p>
-        <p class="kpi-label">Clics desde Google Business (web, teléfono, cómo llegar)</p>
-      </div>
-    </div>
+    <p class="case-index">03 — El día de la inauguración</p>
+    <p class="case-body">El 13 de noviembre de 2025, Škoda Motor Pacífico inauguró su nuevo concesionario en Alzira, gestionado por Motor Pacífico Premium (Grupo Ibérica). Por la mañana, prensa y directivos hicieron el recorrido desde las instalaciones renovadas de Xàtiva hasta Alzira; por la tarde, un acto interno reunió al equipo para celebrar el nuevo paso. Al acto asistieron Fidel Jiménez de Parga (director general de Škoda España) y Carlos Calatayud (director de Ventas), Fernando Núñez Rebolo (presidente de Grupo Motor Pacífico y Grupo Ibérica) y Miguel Buendía (CEO de Grupo Motor Pacífico), junto con Alfons Domínguez Gento (alcalde de Alzira), Laura Sáez Martínez (diputada de Hacienda) y Marián Cano (consejera de Innovación, Industria, Comercio y Turismo).</p>
+    <blockquote class="case-quote">
+      "Alzira y Xàtiva suman más de 75.000 habitantes y representan zonas de gran dinamismo."
+      <cite>Fidel Jiménez de Parga, director general de Škoda España</cite>
+    </blockquote>
+    <figure class="case-photo">
+      <img src="Assets/skoda-inauguracion-alzira.jpg" alt="Directivos de Škoda España, Grupo Motor Pacífico, Grupo Ibérica y autoridades de Alzira junto al equipo de Motor Pacífico en la inauguración">
+      <figcaption>Directivos de Škoda España, Grupo Motor Pacífico, Grupo Ibérica y autoridades de Alzira, junto al equipo de Motor Pacífico.</figcaption>
+    </figure>
   </div>
 </section>
 
 <section class="case-editorial" style="padding-top: 0;">
   <div class="text-card">
-    <p class="case-index">04 — Campaña destacada</p>
-    <p class="case-subtitle">Campaña de Meta Ads para captación de leads en vehículo de ocasión.</p>
-    <table class="campaign-table">
-      <thead>
-        <tr>
-          <th>Impresiones</th>
-          <th>Clics</th>
-          <th>CPC</th>
-          <th>Inversión</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>53.570</td>
-          <td>1.188</td>
-          <td class="highlight">0,12 €</td>
-          <td>144,46 €</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="case-body" style="margin-top: 1.2rem;">Con menos de 150 € de inversión, la campaña generó más de mil clics cualificados hacia el formulario de leads, muy por debajo del coste por clic medio del sector para automoción local.</p>
-  </div>
-</section>
-
-<section class="case-editorial" style="padding-top: 0;">
-  <div class="text-card">
-    <p class="case-index">05 — Frente a la competencia</p>
-    <p class="case-subtitle">Engagement rate en Instagram, comparado con cuentas de concesionarios de la misma zona.</p>
-    <div class="bench-list">
-      <div class="bench-row">
-        <span class="bench-name is-self">SEAT Miferauto</span>
-        <div class="bench-track"><div class="bench-fill is-self" style="width: 82%;"></div></div>
-        <span class="bench-value is-self">0,89</span>
-      </div>
-      <div class="bench-row">
-        <span class="bench-name">Škoda Motor Pacífico</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 55%;"></div></div>
-        <span class="bench-value">0,59</span>
-      </div>
-      <div class="bench-row">
-        <span class="bench-name">Audi Motor Pacífico</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 51%;"></div></div>
-        <span class="bench-value">0,55</span>
-      </div>
-      <div class="bench-row">
-        <span class="bench-name">Volkswagen Motor Pacífico</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 50%;"></div></div>
-        <span class="bench-value">0,54</span>
-      </div>
-      <div class="bench-row">
-        <span class="bench-name">SEAT España (nacional)</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 30%;"></div></div>
-        <span class="bench-value">0,32</span>
-      </div>
+    <p class="case-index">04 — Repercusión en medios y redes</p>
+    <p class="case-body">El acto tuvo cobertura en medios locales y del sector, además de la comunicación oficial de la marca.</p>
+    <div class="press-list">
+      <a href="https://comunicacion.skoda.es/2025/11/13/skoda-apuesta-por-la-comunidad-valenciana-con-un-nuevo-concesionario-en-alzira-de-la-mano-de-motor-pacifico/" target="_blank" rel="noopener">Škoda Comunicación</a>
+      <a href="https://www.grupoiberica.com/skoda-motor-pacifico-inaugura-su-nuevo-concesionario-en-alzira" target="_blank" rel="noopener">Grupo Ibérica</a>
+      <a href="https://cadenaser.com/comunitat-valenciana/2025/11/14/skoda-motor-pacifico-llega-a-alzira-innovacion-y-confianza-sobre-ruedas-radio-xativa/" target="_blank" rel="noopener">Cadena SER</a>
+      <a href="https://www.elperiodic.com/alzira/koda-impulsa-camino-hacia-liderazgo-apertura-nuevo-concesionario-motor-pacifico-alzira_1045405" target="_blank" rel="noopener">El Periódic</a>
+      <a href="https://actualidadvalencia.com/skoda-alzira-nuevo-concesionario-motor-pacifico/" target="_blank" rel="noopener">Actualidad Valencia</a>
+      <a href="https://diaridigital.es/skoda-motor-pacifico-extiende-a-alzira-su-apuesta-por-la-comunidad-valenciana-abriendo-un-nuevo-concesionario-despues-del-de-xativa/" target="_blank" rel="noopener">Diari Digital</a>
+      <a href="https://www.copeintercomarcas.com/skoda-expande-su-presencia-en-la-comunidad-valenciana-con-nuevo-concesionario-en-alzira/" target="_blank" rel="noopener">COPE InterComarcas</a>
+      <a href="https://www.posventa.com/texto-diario/mostrar/5680182/skoda-suma-concesionario-alzira-mano-motor-pacifico" target="_blank" rel="noopener">Posventa</a>
     </div>
-    <p class="bench-note">Engagement por seguidor sobre me gusta + comentarios. SEAT Miferauto supera a todas las cuentas de concesionario de la zona, incluida la cuenta nacional de la marca.</p>
+    <div class="case-embed">
+      <iframe src="https://www.instagram.com/p/DRC2qskjdY9/embed" allowtransparency="true" scrolling="no" title="Publicación en Instagram sobre la inauguración de Škoda Motor Pacífico en Alzira"></iframe>
+    </div>
   </div>
 </section>
 

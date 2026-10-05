@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nestor Arbona — Portfolio</title>
+<meta name="description" content="Especialista en Marketing Digital, Social Media y Paid Media. Portfolio de campañas y gestión de comunidad para SEAT, CUPRA y Škoda.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Néstor Arbona — Portfolio">
+<meta property="og:description" content="Especialista en Marketing Digital, Social Media y Paid Media. Portfolio de campañas y gestión de comunidad para SEAT, CUPRA y Škoda.">
+<meta property="og:image" content="https://www.nestorarbona.com/Assets/og-image.png">
+<meta property="og:url" content="https://www.nestorarbona.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Néstor Arbona — Portfolio">
+<meta name="twitter:description" content="Especialista en Marketing Digital, Social Media y Paid Media. Portfolio de campañas y gestión de comunidad para SEAT, CUPRA y Škoda.">
+<meta name="twitter:image" content="https://www.nestorarbona.com/Assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,7 +38,6 @@
 
   html {
     background: var(--bg);
-    overflow-x: hidden;
   }
 
   body {
@@ -37,8 +46,6 @@
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    max-width: 100vw;
   }
 
   header {
@@ -84,37 +91,6 @@
 
   nav a:hover { color: #ffde00; }
 
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 200;
-  }
-
-  .menu-toggle span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .menu-toggle.open span:nth-child(2) { opacity: 0; }
-  .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .nav-backdrop {
-    display: none;
-  }
-
   section {
     max-width: 860px;
     margin: 0 auto;
@@ -152,7 +128,6 @@
     max-width: 860px;
     margin: 0 auto;
     padding: 0 2rem;
-    transform: translateY(-8vh);
   }
 
   .hero p.eyebrow {
@@ -289,60 +264,92 @@
     color: var(--text);
   }
 
-  /* Portfolio — carrusel 3D */
-  .carousel-wrap {
-    position: relative;
-    max-width: 340px;
-    margin: 0 auto;
+  /* Portfolio — carrusel nativo (::scroll-button / ::scroll-marker) */
+  .pf-hint {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
   }
 
-  .carousel-viewport {
-    perspective: 1400px;
-    height: 400px;
+  @supports selector(::scroll-marker-group) {
+    .pf-hint { display: none; }
+  }
+
+  .pf-carousel {
+    --pf-btn-size: 40px;
+    --pf-card-w: min(300px, 78vw);
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 2rem 0 4.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--pf-card-w);
+    gap: 1.5rem;
+    anchor-name: --pf-carousel;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .pf-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pf-carousel::before,
+  .pf-carousel::after {
+    content: '';
+  }
+
+  .pf-carousel {
+    scroll-marker-group: after;
+  }
+
+  .pf-carousel::scroll-marker-group {
+    position: absolute;
+    position-anchor: --pf-carousel;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    top: anchor(bottom);
+    left: anchor(left);
+    right: anchor(right);
+    padding-block-start: 1.5rem;
   }
 
-  .carousel-stage {
-    --card-w: 300px;
-    --card-h: 380px;
-    --card-z: 287px;
+  .pf-card {
     position: relative;
-    width: var(--card-w);
-    height: var(--card-h);
-    transform-style: preserve-3d;
-    transition: transform 0.9s cubic-bezier(0.68, -0.2, 0.32, 1.15);
-  }
-
-  .carousel-card {
-    position: absolute;
-    inset: 0;
-    width: var(--card-w);
-    height: var(--card-h);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    container-type: scroll-state;
     border: 1px solid var(--line);
     background: rgba(23, 23, 23, 0.85);
     border-radius: 14px;
     padding: 1.8rem;
     display: flex;
     flex-direction: column;
-    backface-visibility: hidden;
-    pointer-events: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: opacity 0.3s ease, scale 0.3s ease, border-color 0.3s ease;
   }
 
-  .carousel-card[aria-hidden="false"] {
-    pointer-events: auto;
+  .pf-card.scroll-start {
+    scroll-initial-target: nearest;
   }
 
-  .carousel-card[aria-hidden="false"]:hover {
+  @container not scroll-state(snapped: inline) {
+    .pf-card {
+      opacity: 0.5;
+      scale: 0.94;
+    }
+  }
+
+  .pf-card:hover {
     border-color: #ffde00;
-    box-shadow: 0 0 24px rgba(255, 222, 0, 0.08);
   }
-
-  .carousel-card:nth-child(1) { transform: rotateY(0deg) translateZ(var(--card-z)); }
-  .carousel-card:nth-child(2) { transform: rotateY(120deg) translateZ(var(--card-z)); }
-  .carousel-card:nth-child(3) { transform: rotateY(240deg) translateZ(var(--card-z)); }
 
   .card-header {
     display: flex;
@@ -365,19 +372,26 @@
     border-radius: 8px;
   }
 
-  .carousel-card h3 {
+  .pf-card .tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .pf-card h3 {
     font-size: 1.15rem;
-    margin: 0;
+    margin: 0.6rem 0 0.6rem;
     letter-spacing: -0.01em;
   }
 
-  .carousel-card p {
+  .pf-card p {
     color: var(--muted);
     font-size: 0.92rem;
     flex: 1;
   }
 
-  .carousel-card a {
+  .pf-card a {
     display: inline-block;
     margin-top: 1rem;
     font-size: 0.85rem;
@@ -388,58 +402,61 @@
     transition: color 0.2s ease, border-color 0.2s ease;
   }
 
-  .carousel-card a:hover {
+  .pf-card a:hover {
     color: #ffde00;
     border-color: #ffde00;
   }
 
-  .carousel-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
-    margin-top: 2rem;
-  }
-
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  .pf-carousel::scroll-button(*) {
+    position: absolute;
+    position-anchor: --pf-carousel;
+    width: var(--pf-btn-size);
+    aspect-ratio: 1;
+    font: inherit;
+    background-color: rgba(23, 23, 23, 0.9);
     border: 1px solid var(--line);
-    background: transparent;
+    display: grid;
+    place-content: center;
     color: var(--text);
-    font-size: 1.1rem;
-    line-height: 1;
+    border-radius: 50%;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: border-color 0.2s ease, color 0.2s ease;
   }
 
-  .carousel-btn:hover {
+  .pf-carousel::scroll-button(inline-start) {
+    content: '←';
+    left: calc(anchor(left) - var(--pf-btn-size) - 0.5rem);
+    top: anchor(center);
+  }
+
+  .pf-carousel::scroll-button(inline-end) {
+    content: '→';
+    right: calc(anchor(right) - var(--pf-btn-size) - 0.5rem);
+    top: anchor(center);
+  }
+
+  .pf-carousel::scroll-button(*):not(:disabled):hover {
     border-color: #ffde00;
     color: #ffde00;
   }
 
-  .carousel-dots {
-    display: flex;
-    gap: 0.5rem;
+  .pf-carousel::scroll-button(*):disabled {
+    opacity: 0.3;
+    cursor: default;
   }
 
-  .carousel-dot {
+  .pf-carousel::scroll-marker {
+    content: '';
     width: 8px;
     height: 8px;
-    padding: 0;
-    border: none;
     border-radius: 50%;
     background: var(--line);
-    cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, scale 0.2s ease;
   }
 
-  .carousel-dot.active {
+  .pf-carousel::scroll-marker:target-current {
     background: #ffde00;
+    scale: 1.2;
   }
 
   /* Contacto */
@@ -456,54 +473,6 @@
     color: #ffffff;
     font-weight: 700;
     font-size: 1.3rem;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .form-row {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 0.8rem 1rem;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.92rem;
-    resize: vertical;
-    transition: border-color 0.2s ease;
-  }
-
-  .contact-form input::placeholder,
-  .contact-form textarea::placeholder {
-    color: var(--muted);
-  }
-
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    outline: none;
-    border-color: #ffde00;
-  }
-
-  .contact-form button {
-    align-self: flex-start;
-    border: none;
-    cursor: pointer;
-  }
-
-  @media (max-width: 600px) {
-    .form-row {
-      flex-direction: column;
-    }
   }
 
   .contact-hashtag {
@@ -576,65 +545,9 @@
 
   @media (max-width: 600px) {
     header { padding: 1.2rem 1.2rem; }
-    .logo { margin-left: 0; }
-    .logo img { height: 42px; }
-
-    .menu-toggle {
-      display: flex;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100vh;
-      width: 70%;
-      max-width: 280px;
-      background: rgba(10, 10, 10, 0.97);
-      backdrop-filter: blur(10px);
-      border-left: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      z-index: 150;
-    }
-
-    nav.open {
-      transform: translateX(0);
-    }
-
-    nav ul {
-      flex-direction: column;
-      gap: 2rem;
-      text-align: center;
-    }
-
-    nav a {
-      font-size: 1.1rem;
-    }
-
-    .nav-backdrop {
-      display: block;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 90;
-    }
-
-    .nav-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
+    nav ul { gap: 1.2rem; }
     section { padding: 4rem 1.2rem; }
-    .carousel-wrap { max-width: 260px; }
-    .carousel-viewport { height: 360px; }
-    .carousel-stage { --card-w: 220px; --card-h: 340px; --card-z: 210px; }
+    .pf-carousel { --pf-btn-size: 34px; }
   }
 
   #preloader {
@@ -683,13 +596,8 @@
 </div>
 
 <header>
-  <a href="#" class="logo"><img src="Assets/N mk1-02.png" alt="Nestor Arbona"></a>
-  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <nav id="mainNav">
+  <a href="#" class="logo"><img src="Assets/Nestor Arbona Logo.png" alt="Nestor Arbona"></a>
+  <nav>
     <ul>
       <li><a href="sobre-mi.html">Quién soy</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
@@ -697,29 +605,6 @@
     </ul>
   </nav>
 </header>
-<div class="nav-backdrop" id="navBackdrop"></div>
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
-  const navBackdrop = document.getElementById('navBackdrop');
-
-  function closeMenu() {
-    menuToggle.classList.remove('open');
-    mainNav.classList.remove('open');
-    navBackdrop.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-  }
-
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mainNav.classList.toggle('open');
-    menuToggle.classList.toggle('open', isOpen);
-    navBackdrop.classList.toggle('open', isOpen);
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  navBackdrop.addEventListener('click', closeMenu);
-  mainNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-</script>
 
 <section class="hero">
   <div class="hero-content">
@@ -747,39 +632,31 @@
 
 <section id="portfolio">
   <h2 class="section-title">Portfolio</h2>
-  <div class="carousel-wrap">
-    <div class="carousel-viewport">
-      <div class="carousel-stage" id="carouselStage">
-        <div class="carousel-card">
-          <div class="card-header">
-            <img class="brand-icon" src="Assets/seat-icon-white.png" alt="SEAT">
-            <h3>SEAT Miferauto</h3>
-          </div>
-          <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
-          <a href="seat-miferauto.html">Ver caso →</a>
-        </div>
-        <div class="carousel-card">
-          <div class="card-header">
-            <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="CUPRA">
-            <h3>CUPRA Miferauto</h3>
-          </div>
-          <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
-          <a href="cupra-miferauto.html">Ver caso →</a>
-        </div>
-        <div class="carousel-card">
-          <div class="card-header">
-            <img class="brand-icon" src="Assets/skoda-lockup-white.png" alt="Škoda Motor Pacífico">
-            <h3>Škoda Motor Pacífico</h3>
-          </div>
-          <p>Organización, prensa y redes en la inauguración del concesionario de Alzira, con directivos de Škoda España, Grupo Motor Pacífico y Grupo Ibérica.</p>
-          <a href="skoda-motor-pacifico.html">Ver caso →</a>
-        </div>
+  <p class="pf-hint">Desliza para ver todos los proyectos →</p>
+  <div class="pf-carousel">
+    <div class="pf-card scroll-start">
+      <div class="card-header">
+        <img class="brand-icon" src="Assets/seat-icon-white.png" alt="SEAT">
       </div>
+      <h3>SEAT Miferauto</h3>
+      <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
+      <a href="caso-seat-miferauto.html">Ver caso →</a>
     </div>
-    <div class="carousel-controls">
-      <button class="carousel-btn" id="carouselPrev" aria-label="Proyecto anterior">‹</button>
-      <div class="carousel-dots" id="carouselDots"></div>
-      <button class="carousel-btn" id="carouselNext" aria-label="Siguiente proyecto">›</button>
+    <div class="pf-card">
+      <div class="card-header">
+        <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="CUPRA">
+      </div>
+      <h3>CUPRA Miferauto</h3>
+      <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
+      <a href="caso-cupra-miferauto.html">Ver caso →</a>
+    </div>
+    <div class="pf-card">
+      <div class="card-header">
+        <img class="brand-icon" src="Assets/skoda-lockup-white.png" alt="Škoda Motor Pacífico">
+      </div>
+      <h3>Škoda Motor Pacífico</h3>
+      <p>Organización, prensa y redes en la inauguración del concesionario de Alzira, con directivos de Škoda España, Grupo Motor Pacífico y Grupo Ibérica.</p>
+      <a href="caso-skoda-miferauto.html">Ver caso →</a>
     </div>
   </div>
 </section>
@@ -787,27 +664,15 @@
 <section id="contacto">
   <div class="contact-box">
     <h3 class="contact-title">Contacto</h3>
-    <p>¿Tienes un proyecto en mente o quieres saludar? Escríbeme por el formulario o por cualquiera de estos canales.</p>
-    <form class="contact-form" action="https://formsubmit.co/nestorarbona@gmail.com" method="POST">
-      <input type="text" name="_honey" style="display:none">
-      <input type="hidden" name="_subject" value="Nuevo mensaje desde la web">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" value="https://nestor-arbona.github.io/nestor-arbona-web/gracias.html">
-      <div class="form-row">
-        <input type="text" name="Nombre" placeholder="Tu nombre" required>
-        <input type="email" name="Email" placeholder="Tu email" required>
-      </div>
-      <textarea name="Mensaje" rows="4" placeholder="Cuéntame en qué puedo ayudarte" required></textarea>
-      <button type="submit" class="btn btn-primary">Enviar mensaje</button>
-    </form>
+    <p>¿Tienes un proyecto en mente o quieres saludar? Escríbeme por cualquiera de estos canales.</p>
     <div class="social-links">
-      <a href="https://www.linkedin.com/in/nestorarbonanunez" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
-      <a href="https://github.com/Nestor-Arbona" target="_blank" rel="noopener" aria-label="GitHub">
+      <a href="#" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .31.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
       </a>
-      <a href="https://www.behance.net/nestor_arbona" target="_blank" rel="noopener" aria-label="Behance">
+      <a href="#" target="_blank" rel="noopener" aria-label="Behance">
         <svg viewBox="0 0 24 24"><path d="M22 7.34h-6.75V5.6H22v1.74zM7.85 12.24c.94-.5 1.47-1.32 1.47-2.6 0-2.42-1.77-3.53-4.06-3.53H0v14.34h5.42c2.5 0 4.86-1.2 4.86-3.98 0-1.72-.87-2.94-2.43-3.23zM3.13 8.05h2.02c.99 0 1.87.34 1.87 1.5 0 1.07-.75 1.55-1.75 1.55H3.13V8.05zm2.28 9.42H3.13v-3.6h2.35c1.23 0 2.06.53 2.06 1.83 0 1.32-1 1.77-2.13 1.77zM16.15 9.23c-3.51 0-5.63 2.5-5.63 5.92 0 3.57 1.98 5.86 5.65 5.86 2.83 0 4.65-1.32 5.3-4h-2.68c-.24.9-1.15 1.4-2.53 1.4-1.82 0-2.8-1.08-2.87-3.05h8.24c.16-3.83-1.75-6.13-5.48-6.13zm-2.7 4.7c.13-1.5 1.06-2.5 2.65-2.5 1.57 0 2.35 1 2.44 2.5h-5.09z"/></svg>
       </a>
     </div>
@@ -869,60 +734,6 @@
   }, { threshold: 0.5 });
 
   twObserver.observe(twEl);
-</script>
-
-<script>
-  (function () {
-    const stage = document.getElementById('carouselStage');
-    if (!stage) return;
-    const cards = Array.from(stage.querySelectorAll('.carousel-card'));
-    const dotsWrap = document.getElementById('carouselDots');
-    const prevBtn = document.getElementById('carouselPrev');
-    const nextBtn = document.getElementById('carouselNext');
-    const total = cards.length;
-    let current = 0;
-    let rotation = 0;
-
-    cards.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
-      dot.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(dot);
-    });
-    const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
-
-    function getCardZ() {
-      return parseFloat(getComputedStyle(stage).getPropertyValue('--card-z')) || 0;
-    }
-
-    function render() {
-      const z = getCardZ();
-      stage.style.transform = 'translateZ(' + (-z) + 'px) rotateY(' + rotation + 'deg)';
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-      cards.forEach((c, i) => {
-        const isActive = i === current;
-        c.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        const link = c.querySelector('a');
-        if (link) link.tabIndex = isActive ? 0 : -1;
-      });
-    }
-
-    function goTo(index) {
-      let diff = index - current;
-      if (diff > total / 2) diff -= total;
-      if (diff < -total / 2) diff += total;
-      rotation -= diff * (360 / total);
-      current = index;
-      render();
-    }
-
-    prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
-    nextBtn.addEventListener('click', () => goTo((current + 1) % total));
-    window.addEventListener('resize', render);
-
-    render();
-  })();
 </script>
 
 <script type="module">

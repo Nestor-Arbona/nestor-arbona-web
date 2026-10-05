@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caso SEAT Miferauto — Nestor Arbona</title>
+<title>Caso CUPRA Miferauto — Nestor Arbona</title>
+<meta name="description" content="Comunidad, reels y Google Business para CUPRA Miferauto: +61% de seguidores y un alcance en Google multiplicado casi por 50.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Caso CUPRA Miferauto — Néstor Arbona">
+<meta property="og:description" content="Comunidad, reels y Google Business para CUPRA Miferauto: +61% de seguidores y un alcance en Google multiplicado casi por 50.">
+<meta property="og:image" content="https://www.nestorarbona.com/Assets/og-image.png">
+<meta property="og:url" content="https://www.nestorarbona.com/caso-cupra-miferauto.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Caso CUPRA Miferauto — Néstor Arbona">
+<meta name="twitter:description" content="Comunidad, reels y Google Business para CUPRA Miferauto: +61% de seguidores y un alcance en Google multiplicado casi por 50.">
+<meta name="twitter:image" content="https://www.nestorarbona.com/Assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +29,7 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; background: var(--bg); overflow-x: hidden; }
+  html { scroll-behavior: smooth; background: var(--bg); }
 
   ::selection {
     background: #ffde00;
@@ -32,8 +42,6 @@
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    max-width: 100vw;
   }
 
   header {
@@ -78,37 +86,6 @@
   }
 
   nav a:hover { color: var(--accent); }
-
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 200;
-  }
-
-  .menu-toggle span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .menu-toggle.open span:nth-child(2) { opacity: 0; }
-  .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .nav-backdrop {
-    display: none;
-  }
 
   section {
     max-width: 860px;
@@ -356,6 +333,79 @@
     margin-top: 1.4rem;
   }
 
+  /* Hitos */
+  .hito-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .hito-item {
+    border-top: 1px solid var(--line);
+    padding-top: 1.8rem;
+  }
+
+  .hito-item:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .hito-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .hito-item p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    max-width: 640px;
+  }
+
+  .hito-media {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+
+  .hito-media figure {
+    margin: 0;
+  }
+
+  .hito-media img {
+    max-height: 320px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    display: block;
+  }
+
+  .hito-media figcaption {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 0.5rem;
+    max-width: 240px;
+  }
+
+  .hito-reel {
+    margin-top: 1.2rem;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .hito-reel iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+    display: block;
+  }
+
   .case-nav {
     display: flex;
     justify-content: space-between;
@@ -413,67 +463,16 @@
 
   @media (max-width: 600px) {
     header { padding: 1.2rem 1.2rem; }
-    .logo { margin-left: 0; }
-    .logo img { height: 42px; }
-
-    .menu-toggle {
-      display: flex;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100vh;
-      width: 70%;
-      max-width: 280px;
-      background: rgba(10, 10, 10, 0.97);
-      backdrop-filter: blur(10px);
-      border-left: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      z-index: 150;
-    }
-
-    nav.open {
-      transform: translateX(0);
-    }
-
-    nav ul {
-      flex-direction: column;
-      gap: 2rem;
-      text-align: center;
-    }
-
-    nav a {
-      font-size: 1.1rem;
-    }
-
-    .nav-backdrop {
-      display: block;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 90;
-    }
-
-    .nav-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
+    nav ul { gap: 1.2rem; }
     section { padding: 4rem 1.2rem; }
     .text-card { padding: 1.2rem; }
     .bench-row {
       grid-template-columns: 100px 1fr 50px;
     }
     .campaign-table { display: block; overflow-x: auto; }
+    .hito-media img { max-height: 260px; }
+    .hito-reel { max-width: 100%; }
+    .hito-reel iframe { height: 520px; }
   }
 
   #preloader {
@@ -523,12 +522,7 @@
 
 <header>
   <a href="index.html" class="logo"><img src="Assets/Nestor Arbona Logo.png" alt="Nestor Arbona"></a>
-  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <nav id="mainNav">
+  <nav>
     <ul>
       <li><a href="sobre-mi.html">Quién soy</a></li>
       <li><a href="index.html#portfolio">Portfolio</a></li>
@@ -536,33 +530,10 @@
     </ul>
   </nav>
 </header>
-<div class="nav-backdrop" id="navBackdrop"></div>
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
-  const navBackdrop = document.getElementById('navBackdrop');
-
-  function closeMenu() {
-    menuToggle.classList.remove('open');
-    mainNav.classList.remove('open');
-    navBackdrop.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-  }
-
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mainNav.classList.toggle('open');
-    menuToggle.classList.toggle('open', isOpen);
-    navBackdrop.classList.toggle('open', isOpen);
-    menuToggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  navBackdrop.addEventListener('click', closeMenu);
-  mainNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-</script>
 
 <section class="case-editorial">
-  <h1 class="case-title">SEAT Miferauto</h1>
-  <p class="case-lead">Redes sociales, contenido y campañas de pago para SEAT Miferauto, concesionario oficial con presencia en Xàtiva, Gandía, Alzira, Alcoy y Ontinyent, con el reto de convertir varios puntos de venta locales en una comunidad activa y en leads reales, no solo en "me gusta".</p>
+  <h1 class="case-title">CUPRA Miferauto</h1>
+  <p class="case-lead">Redes sociales, contenido y campañas de pago para CUPRA Miferauto, la marca más joven del grupo, que arranca en Xàtiva y se implanta después en Gandía y Alzira, con el reto de dar visibilidad local a una marca premium y de construir "Tribu", su concepto de comunidad, más allá de las propias redes sociales.</p>
   <div class="meta-row">
     <span>Instagram &amp; Facebook</span>
     <span>Meta Ads</span>
@@ -574,7 +545,7 @@
 <section class="case-editorial" style="padding-top: 0;">
   <div class="text-card">
     <p class="case-index">01 — El reto</p>
-    <p class="case-body">Miferauto ya tenía redes activas, pero con crecimiento plano y sin conexión clara entre el contenido y las ventas. El objetivo no era una sola palanca, sino que todas trabajasen juntas: hacer crecer la comunidad de forma sostenida, mantener el ritmo de publicación sin perder calidad, y que esa base orgánica sostuviera la inversión en Meta Ads y Google Ads, convirtiéndola en leads medibles para el concesionario.</p>
+    <p class="case-body">CUPRA Miferauto ya tenía una comunidad fiel en Instagram, pero dos palancas se estaban desaprovechando: la ficha de Google Business apenas tenía actividad, y el contenido de marca no se apoyaba en un formato con recorrido de alcance como el reel. El objetivo: mantener la identidad "rebelde" y de tribu que define a CUPRA, mientras se activaban Google Business y los reels como nuevas vías de visibilidad, y se sostenía todo con inversión en Meta Ads orientada a leads.</p>
   </div>
 </section>
 
@@ -585,22 +556,29 @@
       <div class="process-item">
         <span class="process-num">01</span>
         <div class="process-content">
-          <h3>Contenido semanal en Instagram y Facebook</h3>
-          <p>Entregas de coches, presencia en ferias locales, equipo del concesionario y novedades de modelo, combinando posts, reels e historias de forma constante.</p>
+          <h3>Contenido de marca y comunidad "Tribu CUPRA"</h3>
+          <p>Entregas de vehículos, eventos como FiraMotor Gandía y colaboraciones deportivas, dando la bienvenida a cada nuevo cliente como un nuevo miembro de la Tribu.</p>
         </div>
       </div>
       <div class="process-item">
         <span class="process-num">02</span>
         <div class="process-content">
-          <h3>Campañas de Meta Ads orientadas a leads</h3>
-          <p>Segmentación por zonas de influencia de cada concesión (Xàtiva, Gandía, Alzira, Alcoy y Ontinyent), con foco tanto en vehículo nuevo como de ocasión y financiación, optimizando por coste por clic y no solo por alcance.</p>
+          <h3>Apuesta por el reel como formato principal</h3>
+          <p>Se multiplicó el número de reels publicados para ganar alcance orgánico, en un formato que se ajusta mejor a la imagen dinámica de la marca que la foto estática.</p>
         </div>
       </div>
       <div class="process-item">
         <span class="process-num">03</span>
         <div class="process-content">
-          <h3>Gestión de Google Business Profile</h3>
-          <p>Reseñas, ficha actualizada y contenido geolocalizado para captar búsquedas de "SEAT Xàtiva" y "coches segunda mano Xàtiva".</p>
+          <h3>Campañas de Meta Ads orientadas a leads</h3>
+          <p>Campañas de conversión en Facebook e Instagram para captar interesados en vehículo nuevo, optimizando por coste por clic.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">04</span>
+        <div class="process-content">
+          <h3>Reactivación de Google Business Profile</h3>
+          <p>La ficha de "Miferauto Concesionario Oficial CUPRA en Xàtiva" partía prácticamente inactiva. Se puso en marcha con contenido, reseñas y presencia constante en Maps y Búsqueda.</p>
         </div>
       </div>
     </div>
@@ -613,20 +591,20 @@
     <p class="case-subtitle">Datos del periodo gestionado, comparados con el periodo anterior.</p>
     <div class="kpi-grid">
       <div class="kpi-card">
-        <p class="kpi-number">+67%</p>
+        <p class="kpi-number">+61%</p>
         <p class="kpi-label">Seguidores en Instagram</p>
       </div>
       <div class="kpi-card">
-        <p class="kpi-number">7,19M</p>
-        <p class="kpi-label">Impresiones combinadas (+1362%)</p>
+        <p class="kpi-number">4,57M</p>
+        <p class="kpi-label">Impresiones combinadas (+1014%)</p>
       </div>
       <div class="kpi-card">
-        <p class="kpi-number">+329%</p>
-        <p class="kpi-label">Interacciones totales</p>
+        <p class="kpi-number">89 reels</p>
+        <p class="kpi-label">Publicados en el periodo (+641%)</p>
       </div>
       <div class="kpi-card">
-        <p class="kpi-number">7.459</p>
-        <p class="kpi-label">Clics desde Google Business (web, teléfono, cómo llegar)</p>
+        <p class="kpi-number">94,19K</p>
+        <p class="kpi-label">Alcance en Google Business, partiendo de casi cero (+4.824%)</p>
       </div>
     </div>
   </div>
@@ -635,7 +613,7 @@
 <section class="case-editorial" style="padding-top: 0;">
   <div class="text-card">
     <p class="case-index">04 — Campaña destacada</p>
-    <p class="case-subtitle">Campaña de Meta Ads para captación de leads en vehículo de ocasión.</p>
+    <p class="case-subtitle">Campaña de Meta Ads para captación de leads en vehículo nuevo.</p>
     <table class="campaign-table">
       <thead>
         <tr>
@@ -647,49 +625,79 @@
       </thead>
       <tbody>
         <tr>
-          <td>53.570</td>
-          <td>1.188</td>
-          <td class="highlight">0,12 €</td>
-          <td>144,46 €</td>
+          <td>37.110</td>
+          <td>377</td>
+          <td class="highlight">0,58 €</td>
+          <td>220,47 €</td>
         </tr>
       </tbody>
     </table>
-    <p class="case-body" style="margin-top: 1.2rem;">Con menos de 150 € de inversión, la campaña generó más de mil clics cualificados hacia el formulario de leads, muy por debajo del coste por clic medio del sector para automoción local.</p>
+    <p class="case-body" style="margin-top: 1.2rem;">Con poco más de 220 € de inversión, la campaña de leads generó casi 400 clics cualificados, en una marca donde el coste por clic suele ser más alto por el perfil premium del vehículo.</p>
   </div>
 </section>
 
 <section class="case-editorial" style="padding-top: 0;">
   <div class="text-card">
-    <p class="case-index">05 — Frente a la competencia</p>
-    <p class="case-subtitle">Engagement rate en Instagram, comparado con cuentas de concesionarios de la misma zona.</p>
+    <p class="case-index">05 — Frente a concesiones de tamaño similar</p>
+    <p class="case-subtitle">Engagement rate en Instagram, comparado con cuentas CUPRA de un volumen de seguidores parecido.</p>
     <div class="bench-list">
       <div class="bench-row">
-        <span class="bench-name is-self">SEAT Miferauto</span>
-        <div class="bench-track"><div class="bench-fill is-self" style="width: 82%;"></div></div>
-        <span class="bench-value is-self">0,89</span>
+        <span class="bench-name">CUPRA J.R. Valle</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 100%;"></div></div>
+        <span class="bench-value">1,46</span>
       </div>
       <div class="bench-row">
-        <span class="bench-name">Škoda Motor Pacífico</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 55%;"></div></div>
-        <span class="bench-value">0,59</span>
+        <span class="bench-name">CUPRA Sala Rodríguez</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 81%;"></div></div>
+        <span class="bench-value">1,18</span>
       </div>
       <div class="bench-row">
-        <span class="bench-name">Audi Motor Pacífico</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 51%;"></div></div>
-        <span class="bench-value">0,55</span>
+        <span class="bench-name is-self">CUPRA Miferauto</span>
+        <div class="bench-track"><div class="bench-fill is-self" style="width: 74%;"></div></div>
+        <span class="bench-value is-self">1,08</span>
       </div>
       <div class="bench-row">
-        <span class="bench-name">Volkswagen Motor Pacífico</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 50%;"></div></div>
-        <span class="bench-value">0,54</span>
+        <span class="bench-name">Cupra Califa Motor</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 62%;"></div></div>
+        <span class="bench-value">0,91</span>
       </div>
       <div class="bench-row">
-        <span class="bench-name">SEAT España (nacional)</span>
-        <div class="bench-track"><div class="bench-fill" style="width: 30%;"></div></div>
-        <span class="bench-value">0,32</span>
+        <span class="bench-name">CUPRA - Sealco</span>
+        <div class="bench-track"><div class="bench-fill" style="width: 59%;"></div></div>
+        <span class="bench-value">0,86</span>
       </div>
     </div>
-    <p class="bench-note">Engagement por seguidor sobre me gusta + comentarios. SEAT Miferauto supera a todas las cuentas de concesionario de la zona, incluida la cuenta nacional de la marca.</p>
+    <p class="bench-note">Comparativa con concesiones de un volumen de seguidores similar (entre 300 y 2.000), dejando fuera cuentas con una base varias veces mayor. Miferauto compite de tú a tú con el grupo de cabeza, con los reels como palanca para seguir subiendo.</p>
+  </div>
+</section>
+
+<section class="case-editorial" style="padding-top: 0;">
+  <div class="text-card">
+    <p class="case-index">06 — Hitos</p>
+    <p class="case-subtitle">Momentos que marcaron el recorrido de CUPRA dentro de Miferauto.</p>
+    <div class="hito-list">
+      <div class="hito-item">
+        <h3>Nacimiento y expansión: de Xàtiva a Gandía y Alzira</h3>
+        <p>Viví de cerca el nacimiento de CUPRA dentro de las concesiones SEAT de Miferauto: primero en Xàtiva, y después con la apertura de los espacios de Gandía y Alzira, cada uno con su propia identidad de marca conviviendo con SEAT bajo el mismo techo.</p>
+        <div class="hito-media">
+          <figure>
+            <img src="Assets/cupra-hito-nacimiento-alzira.jpg" alt="Fachada del concesionario de Alzira, con los rótulos de SEAT y CUPRA compartiendo espacio">
+            <figcaption>Alzira: SEAT y CUPRA comparten fachada</figcaption>
+          </figure>
+          <figure>
+            <img src="Assets/cupra-hito-concesion-gandia.jpg" alt="Interior del espacio CUPRA en el concesionario de Gandía">
+            <figcaption>Espacio CUPRA en Gandía</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="hito-item">
+        <h3>Primicia nacional: presentación del CUPRA Raval</h3>
+        <p>Miferauto fue la primera concesión en disponer de una unidad del CUPRA Raval, y en Fira Motor Gandía hicimos el destape junto con el ayuntamiento: el primer evento a nivel nacional en el que se presentó el modelo.</p>
+        <div class="hito-reel">
+          <iframe src="https://www.instagram.com/reel/DYFeFF_MGrY/embed" allowtransparency="true" scrolling="no" title="Reel destape CUPRA Raval en Fira Motor Gandía"></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
