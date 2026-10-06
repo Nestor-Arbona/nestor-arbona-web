@@ -479,11 +479,31 @@
     visibility: hidden;
   }
 
-  #preloader-count {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: #ffffff;
+  .preloader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  .preloader-logo {
+    width: 150px;
+    height: auto;
+  }
+
+  .preloader-bar {
+    width: 180px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .preloader-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #ffffff;
+    border-radius: 2px;
   }
 
   body.loading {
@@ -494,7 +514,10 @@
 <body>
 
 <div id="preloader">
-  <span id="preloader-count">0%</span>
+  <div class="preloader-content">
+    <img src="Assets/Logo Nestor Arbona pantalla carga.png" alt="Nestor Arbona" class="preloader-logo">
+    <div class="preloader-bar"><div class="preloader-bar-fill" id="preloaderFill"></div></div>
+  </div>
 </div>
 <script>
   if (sessionStorage.getItem('visited')) {
@@ -644,24 +667,23 @@
 <script>
   if (document.body.classList.contains('loading')) {
     const preloader = document.getElementById('preloader');
-    const counter = document.getElementById('preloader-count');
-    let progress = 0;
+    const fill = document.getElementById('preloaderFill');
+    const duration = 2200;
+    const start = performance.now();
 
-    const tick = () => {
-      progress += Math.random() * 8 + 2;
-      if (progress >= 100) {
-        progress = 100;
-        counter.textContent = '100%';
+    const tick = (now) => {
+      const progress = Math.min(100, ((now - start) / duration) * 100);
+      fill.style.width = progress + '%';
+      if (progress < 100) {
+        requestAnimationFrame(tick);
+      } else {
         preloader.classList.add('hidden');
         document.body.classList.remove('loading');
         sessionStorage.setItem('visited', 'true');
-        return;
       }
-      counter.textContent = Math.floor(progress) + '%';
-      setTimeout(tick, 80);
     };
 
-    tick();
+    requestAnimationFrame(tick);
   }
 </script>
 
