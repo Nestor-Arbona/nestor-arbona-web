@@ -295,87 +295,52 @@
     color: var(--text);
   }
 
-  /* Portfolio — carrusel nativo (::scroll-button / ::scroll-marker) */
-  .pf-hint {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-  }
-
-  @supports selector(::scroll-marker-group) {
-    .pf-hint { display: none; }
-  }
-
+  /* Portfolio — carrusel infinito */
   .pf-carousel {
-    --pf-btn-size: 40px;
     --pf-card-w: min(300px, 78vw);
     width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
-    list-style: none;
-    padding: 2rem 0 4.5rem;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: var(--pf-card-w);
-    gap: 1.5rem;
-    anchor-name: --pf-carousel;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-x: contain;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   }
 
-  .pf-carousel::-webkit-scrollbar {
-    display: none;
-  }
-
-  .pf-carousel::before,
-  .pf-carousel::after {
-    content: '';
-  }
-
-  .pf-carousel {
-    scroll-marker-group: after;
-  }
-
-  .pf-carousel::scroll-marker-group {
-    position: absolute;
-    position-anchor: --pf-carousel;
+  .pf-track {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    top: anchor(bottom);
-    left: anchor(left);
-    right: anchor(right);
-    padding-block-start: 1.5rem;
+    width: max-content;
+    animation: pf-scroll 28s linear infinite;
+  }
+
+  .pf-carousel:hover .pf-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pf-track {
+      animation: none;
+    }
+  }
+
+  @keyframes pf-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .pf-group {
+    display: flex;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .pf-card {
+    flex: 0 0 var(--pf-card-w);
     position: relative;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-    container-type: scroll-state;
     border: 1px solid var(--line);
     background: rgba(23, 23, 23, 0.85);
     border-radius: 14px;
     padding: 1.8rem;
     display: flex;
     flex-direction: column;
-    transition: opacity 0.3s ease, scale 0.3s ease, border-color 0.3s ease;
-  }
-
-  .pf-card.scroll-start {
-    scroll-initial-target: nearest;
-  }
-
-  @container not scroll-state(snapped: inline) {
-    .pf-card {
-      opacity: 0.5;
-      scale: 0.94;
-    }
+    transition: border-color 0.3s ease;
   }
 
   .pf-card:hover {
@@ -436,59 +401,6 @@
   .pf-card a:hover {
     color: #ffde00;
     border-color: #ffde00;
-  }
-
-  .pf-carousel::scroll-button(*) {
-    position: absolute;
-    position-anchor: --pf-carousel;
-    width: var(--pf-btn-size);
-    aspect-ratio: 1;
-    font: inherit;
-    background-color: rgba(23, 23, 23, 0.9);
-    border: 1px solid var(--line);
-    display: grid;
-    place-content: center;
-    color: var(--text);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-  }
-
-  .pf-carousel::scroll-button(inline-start) {
-    content: '←';
-    left: calc(anchor(left) - var(--pf-btn-size) - 0.5rem);
-    top: anchor(center);
-  }
-
-  .pf-carousel::scroll-button(inline-end) {
-    content: '→';
-    right: calc(anchor(right) - var(--pf-btn-size) - 0.5rem);
-    top: anchor(center);
-  }
-
-  .pf-carousel::scroll-button(*):not(:disabled):hover {
-    background-color: #ffde00;
-    border-color: #ffde00;
-    color: #111111;
-  }
-
-  .pf-carousel::scroll-button(*):disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
-
-  .pf-carousel::scroll-marker {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--line);
-    transition: background 0.2s ease, scale 0.2s ease;
-  }
-
-  .pf-carousel::scroll-marker:target-current {
-    background: #ffde00;
-    scale: 1.2;
   }
 
   /* Contacto */
@@ -633,7 +545,6 @@
     }
 
     section { padding: 4rem 1.2rem; }
-    .pf-carousel { --pf-btn-size: 34px; }
   }
 
   #preloader {
@@ -769,31 +680,60 @@
 
 <section id="portfolio">
   <h2 class="section-title">Portfolio</h2>
-  <p class="pf-hint">Desliza para ver todos los proyectos →</p>
   <div class="pf-carousel">
-    <div class="pf-card scroll-start">
-      <div class="card-header">
-        <img class="brand-icon" src="Assets/seat-icon-white.png" alt="SEAT">
+    <div class="pf-track">
+      <div class="pf-group">
+        <div class="pf-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/seat-icon-white.png" alt="SEAT">
+          </div>
+          <h3>SEAT Miferauto</h3>
+          <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
+          <a href="caso-seat-miferauto.html">Ver caso →</a>
+        </div>
+        <div class="pf-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="CUPRA">
+          </div>
+          <h3>CUPRA Miferauto</h3>
+          <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
+          <a href="caso-cupra-miferauto.html">Ver caso →</a>
+        </div>
+        <div class="pf-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/skoda-lockup-white.png" alt="Škoda Motor Pacífico">
+          </div>
+          <h3>Škoda Motor Pacífico</h3>
+          <p>Organización, prensa y redes en la inauguración del concesionario de Alzira, con directivos de Škoda España, Grupo Motor Pacífico y Grupo Ibérica.</p>
+          <a href="caso-skoda-miferauto.html">Ver caso →</a>
+        </div>
       </div>
-      <h3>SEAT Miferauto</h3>
-      <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
-      <a href="caso-seat-miferauto.html">Ver caso →</a>
-    </div>
-    <div class="pf-card">
-      <div class="card-header">
-        <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="CUPRA">
+      <div class="pf-group" aria-hidden="true">
+        <div class="pf-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/seat-icon-white.png" alt="">
+          </div>
+          <h3>SEAT Miferauto</h3>
+          <p>Gestión de redes, contenido y campañas de Meta Ads para un concesionario oficial: +67% de seguidores y leads a 0,12 € el clic.</p>
+          <a href="caso-seat-miferauto.html" tabindex="-1">Ver caso →</a>
+        </div>
+        <div class="pf-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/cupra-icon-white.png" alt="">
+          </div>
+          <h3>CUPRA Miferauto</h3>
+          <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
+          <a href="caso-cupra-miferauto.html" tabindex="-1">Ver caso →</a>
+        </div>
+        <div class="pf-card">
+          <div class="card-header">
+            <img class="brand-icon" src="Assets/skoda-lockup-white.png" alt="">
+          </div>
+          <h3>Škoda Motor Pacífico</h3>
+          <p>Organización, prensa y redes en la inauguración del concesionario de Alzira, con directivos de Škoda España, Grupo Motor Pacífico y Grupo Ibérica.</p>
+          <a href="caso-skoda-miferauto.html" tabindex="-1">Ver caso →</a>
+        </div>
       </div>
-      <h3>CUPRA Miferauto</h3>
-      <p>Comunidad, reels y Google Business para la marca más joven del grupo: +61% de seguidores y un alcance en Google que se multiplicó casi por 50.</p>
-      <a href="caso-cupra-miferauto.html">Ver caso →</a>
-    </div>
-    <div class="pf-card">
-      <div class="card-header">
-        <img class="brand-icon" src="Assets/skoda-lockup-white.png" alt="Škoda Motor Pacífico">
-      </div>
-      <h3>Škoda Motor Pacífico</h3>
-      <p>Organización, prensa y redes en la inauguración del concesionario de Alzira, con directivos de Škoda España, Grupo Motor Pacífico y Grupo Ibérica.</p>
-      <a href="caso-skoda-miferauto.html">Ver caso →</a>
     </div>
   </div>
 </section>
